@@ -9,19 +9,23 @@ interface MobileMenuProps {
 };
 
 const pages = [{
+    title: "Inicio",
+    url: "/",
+    id: 1
+},{
     title: "Jogos",
     url: "/games",
-    id: 1
-},
-{
-    title: "Filmes e Séries",
-    url: "/",
     id: 2
 },
 {
-    title: "Recém Lançados",
-    url: "/",
+    title: "Filmes e Séries",
+    url: "/games",
     id: 3
+},
+{
+    title: "Recém Lançados",
+    url: "/games",
+    id: 4
 }];
 
 export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps){
