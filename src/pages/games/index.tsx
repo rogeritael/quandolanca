@@ -4,7 +4,7 @@ import { Footer } from "../../components/Footer"
 import { GamesContainer } from "../../components/GamesContainer"
 import { Header } from "../../components/Header"
 import { ResultsNotFound } from "../../components/ResultsNotFound"
-import { Container } from "./styles"
+import { Container } from "./gamesStyles"
 
 export default function GamesPage(){
     const [ isResultsFound, SetIsResultsFound ] = useState(true);
