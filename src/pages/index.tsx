@@ -22,6 +22,8 @@ export default function Home() {
         <Card className="type2"/>
         <Card className="type2"/>
         <Card className="type2"/>
+        <Card className="type2"/>
+        <Card className="type2"/>
       </RecommendedList>
     </>
   )
