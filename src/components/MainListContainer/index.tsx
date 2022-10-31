@@ -16,14 +16,6 @@ export function MainListContainer({ title, children }: MainListContainerProps){
     const carousel = useRef<HTMLDivElement>(null);
     const [carouselWidth, setCarouselWidth] = useState(0);
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      };
-
     useEffect(() => {
         const scrollWidth = carousel.current?.scrollWidth  || 0;
         const offsetWidth = carousel.current?.offsetWidth || 0;
