@@ -20,7 +20,7 @@ export const Container = styled.section`
         }
         
         .row {
-            /* width: 10000px; */
+            min-width: 1200px;
             display: flex;
             /* flex-direction: row; */
             column-gap: 2rem;
