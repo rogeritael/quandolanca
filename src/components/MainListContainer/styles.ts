@@ -23,6 +23,7 @@ export const Container = styled.section`
         .row {
             /* width: 10000px; */
             display: flex;
+            flex-direction: row;
             column-gap: 2rem;
         }
     }
