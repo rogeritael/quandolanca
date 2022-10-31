@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { AiOutlineClose } from 'react-icons/ai';
 import Modal from 'react-modal';
@@ -33,6 +33,10 @@ const notifications = [
 ]
 
 export function AppModal({ isOpen, onRequestClose }: AppModalProps){
+    useEffect(() => {
+        document.body.style.overflowY = isOpen ? "hidden" : "auto";
+    }, [isOpen]);
+
     return(
         <Container>
         <Modal

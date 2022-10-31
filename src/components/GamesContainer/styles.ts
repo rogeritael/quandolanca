@@ -3,22 +3,21 @@ import styled from "styled-components";
 export const Container = styled.section`
     width: 100%;
     display: grid;
-    /* flex-wrap: wrap; */
-    /* column-gap: calc((100vw - 60rem) / 5); */
     row-gap: 3rem;
     grid-template-columns: repeat(5, 1fr);
-    /* border: 1px solid red; */
-    
-    /* border: 1px solid red; */
+
 
     article {
-        /* margin-left: 10px; */
-        /* border: 1px solid red; */
         margin: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        .remove-button {
+                display: none;
+                background-color: red;
+            }
 
     }
 
@@ -41,6 +40,7 @@ export const Container = styled.section`
             }
 
             .release-info {
+                margin-top: 1rem;
                 span {
                     font-size: 1rem;
                 }
@@ -48,6 +48,8 @@ export const Container = styled.section`
                 p.title {
                     font-size: 1.25rem;
                 }
+
+               
             }
         }
     }

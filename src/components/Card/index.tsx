@@ -1,5 +1,6 @@
 import { Container } from "./styles";
-import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
+import { SlOptionsVertical } from 'react-icons/sl';
 
 interface CardProps {
     className?: string
@@ -23,9 +24,9 @@ export function Card({ className }: CardProps){
                     <>
                         <span>267 DIAS</span>
                         <p className="title">Resident Evil 4 Remake</p>
+                        <button className="remove-button">remover <AiOutlineClose /></button>
                     </> 
                 )}
-                
             </div>
         </Container>
     );

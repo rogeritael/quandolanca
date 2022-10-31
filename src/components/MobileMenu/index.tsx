@@ -30,9 +30,9 @@ const pages = [{
 
 export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps){
     
-    // useEffect(() => {
-    //     document.body.style.overflowY = isOpen ? "hidden" : "auto";
-    // }, [isOpen]);
+    useEffect(() => {
+        document.body.style.overflowY = isOpen ? "hidden" : "auto";
+    }, [isOpen]);
 
     return(
         <Container isOpen={isOpen}>

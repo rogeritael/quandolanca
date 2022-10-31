@@ -12,6 +12,7 @@ export const Container = styled.section`
         min-height: 200px;
         width: 100%;
         overflow-x: auto;
+        cursor: grab;
 
 
         //scroll

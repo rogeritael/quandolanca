@@ -22,6 +22,7 @@ export const Container = styled.article<CardProps>`
     }
 
     .release-info {
+        position: relative;
         padding: 0.25rem 0;
         span {
             font-size: .6rem;
@@ -30,6 +31,37 @@ export const Container = styled.article<CardProps>`
         p.title {
             color: #fff;
             margin-top: 0.25rem;
+
+            svg {
+                margin-bottom: -2px;
+                color: var(--gray-2);
+            }
+        }
+
+        .remove-button {
+            margin-top: 10px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-2);
+            background-color: transparent;
+            color: var(--gray-2);
+            position: relative;
+            transition: 500ms;
+            margin-left: 1.5px;
+
+            svg {
+                margin-left: 3px;
+                position: relative;
+            }
+
+            &:hover {
+                color: #fff;
+                transform: scale(1.05);
+                border-color: #fff;
+                background-color: #fff;
+                color: var(--gray-2);
+            }
         }
     }
 
@@ -54,7 +86,6 @@ export const Container = styled.article<CardProps>`
                 position: absolute;
                 width: 100%;
                 height: 100%;
-                /* display: flex; */
                 align-items: center;
                 justify-content: center;
 
