@@ -10,6 +10,7 @@ export const Container = styled.section`
     .card-container {
 
         min-height: 200px;
+        min-width: 1200px;
         width: 100%;
         overflow-x: auto;
 
@@ -20,7 +21,6 @@ export const Container = styled.section`
         }
         
         .row {
-            min-width: 1200px;
             display: flex;
             /* flex-direction: row; */
             column-gap: 2rem;
