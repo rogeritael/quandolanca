@@ -17,9 +17,12 @@ export function MainListContainer({ title, children }: MainListContainerProps){
     const [carouselWidth, setCarouselWidth] = useState(0);
 
     useEffect(() => {
-        const scrollWidth = carousel.current?.scrollWidth  || 0;
-        const offsetWidth = carousel.current?.offsetWidth || 0;
-        setCarouselWidth(scrollWidth - offsetWidth);
+        // const scrollWidth = carousel.current?.scrollWidth  || 0;
+        // const offsetWidth = carousel.current?.offsetWidth || 0;
+        // setCarouselWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+        //7 itens de 12rem = 84rem  | 6 espaço de margem de 2rem = 12 rem | itens + margem = 96rem 
+        const width = 76 * 16;
+        setCarouselWidth(width)
     }, []);
 
     return(
