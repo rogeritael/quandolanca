@@ -10,7 +10,7 @@ export const Container = styled.section`
     .card-container {
 
         min-height: 200px;
-        width: 100%;
+        width: 1000px;
         overflow-x: auto;
         cursor: grab;
 
