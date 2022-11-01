@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/legacy/image";
 import { useState } from "react";
 import { AiOutlinePlus, AiFillBell } from 'react-icons/ai';
+import { BiLogIn } from 'react-icons/bi';
 import { FaBars } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { Container } from "./styles";
@@ -78,8 +79,10 @@ export function Header(){
                 ) : (
                     <Link href="/login" className="login-link">LOGIN | CRIAR CONTA</Link>
                 )}
-
-                <FaBars className="toggle" onClick={() => setIsMenuOpen(true)}/>
+                <div className="icons">
+                    <FaBars className="toggle" onClick={() => setIsMenuOpen(true)}/>
+                    <Link href="/login" className="login-icon"><BiLogIn /></Link>
+                </div>
             </div>
             <nav className="pages">
                 {pages.map( page => (

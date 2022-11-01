@@ -1,10 +1,25 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-     .toggle {
-            display: none;
-        }
+    .toggle {
+        display: none;
+    }
 
+    div.icons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        a.login-icon {
+            svg {
+                display: none;
+                font-size: 2rem;
+                color: var(--gray-2);
+                margin-top: 1px;
+                margin-left: 5px;
+            }
+        }
+    }
 
     .header-top {
         height: 80px;
@@ -45,6 +60,8 @@ export const Container = styled.header`
                     }
                 }
             }
+
+            
         }
 
         //botão plus
@@ -143,6 +160,10 @@ export const Container = styled.header`
 
     //mobile
     @media (max-width: 425px){
+        div.icons a.login-icon svg {
+            display: block;
+        }
+
         .user-info {
             .user-image, p {
                 display: none;
@@ -154,6 +175,10 @@ export const Container = styled.header`
             }
         }
 
+        .header-top {
+            justify-content: space-between;
+        }
+
         nav.pages {
             display: none;
         }
@@ -161,6 +186,17 @@ export const Container = styled.header`
         .toggle {
             font-size: 1.5rem;
             display: block;
+            color: var(--gray-2);
+        }
+
+        .login-link {
+            display: none;
+        }
+    }
+
+    @media (max-width: 345px){
+        .header-top {
+            padding: 0 1rem;
         }
     }
 `;

@@ -3,12 +3,13 @@ import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
 import { SlOptionsVertical } from 'react-icons/sl';
 
 interface CardProps {
-    type?: number
+    type?: number,
+    isLogged?: boolean
 }
 
-export function Card({ type }: CardProps){
+export function Card({ type, isLogged }: CardProps){
     return(
-        <Container type={type}>
+        <Container type={type} >
             <figure className="cover">
                 <span className="over">
                     <AiOutlinePlusCircle />
@@ -24,7 +25,9 @@ export function Card({ type }: CardProps){
                     <>
                         <span>267 DIAS</span>
                         <p className="title">Resident Evil 4 Remake</p>
-                        <button className="remove-button">remover <AiOutlineClose /></button>
+                        {isLogged === true && (
+                            <button className="remove-button">remover <AiOutlineClose /></button>
+                        )}
                     </> 
                 )}
             </div>
