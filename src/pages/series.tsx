@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { render } from "react-dom"
 import { Footer } from "../components/Footer"
 import { GamesContainer } from "../components/GamesContainer"
 import { Header } from "../components/Header"
@@ -11,6 +10,7 @@ export default function Series(){
 
     return(
         <>
+            <Header />
             <Container>
                 {isResultsFound ? (
                     <>
@@ -22,6 +22,7 @@ export default function Series(){
                 )}
                 
             </Container>
+            <Footer />
         </>
     )
 }

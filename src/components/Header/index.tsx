@@ -13,7 +13,7 @@ const pages = [{
     url: "/",
     id: 0
 },
-{
+{ 
     title: "Jogos",
     url: "/games",
     id: 1
@@ -30,7 +30,7 @@ const pages = [{
 }];
 
 export function Header(){
-    const [isLogged, setIsLogged] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);

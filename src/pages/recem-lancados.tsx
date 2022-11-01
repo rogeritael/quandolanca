@@ -11,6 +11,7 @@ export default function RecemLancados(){
 
     return(
         <>
+            <Header />
             <Container>
                 {isResultsFound ? (
                     <>
@@ -22,6 +23,7 @@ export default function RecemLancados(){
                 )}
                 
             </Container>
+            <Footer />
         </>
     )
 }

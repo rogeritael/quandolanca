@@ -11,6 +11,7 @@ export default function GamesPage(){
 
     return(
         <>
+            <Header />
             <Container>
                 {isResultsFound ? (
                     <>
@@ -22,6 +23,7 @@ export default function GamesPage(){
                 )}
                 
             </Container>
+            <Footer />
         </>
     )
 }

@@ -6,6 +6,7 @@ import { CardSlider } from "../components/CardSlider";
 export default function Home() {
   return (
     <>
+      <Header />
       <CardSlider columns={1} title="Minha Lista">
         <Card/>
         <Card/>
@@ -26,6 +27,7 @@ export default function Home() {
         <Card type={2}/>
         <Card type={2}/>
       </CardSlider>
+      <Footer />
     </>
   )
 }
