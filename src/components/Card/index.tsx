@@ -3,19 +3,19 @@ import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
 import { SlOptionsVertical } from 'react-icons/sl';
 
 interface CardProps {
-    className?: string
+    type?: number
 }
 
-export function Card({ className }: CardProps){
+export function Card({ type }: CardProps){
     return(
-        <Container className={className}>
+        <Container type={type}>
             <figure className="cover">
                 <span className="over">
                     <AiOutlinePlusCircle />
                 </span>
             </figure>
             <div className="release-info">
-                {className === "type2" ? (
+                {type === 2 ? (
                     <>
                         <p className="title">Resident Evil 4 Remake</p>
                         <span>Chega dia 10/02/2023</span>

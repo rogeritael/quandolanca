@@ -1,17 +1,14 @@
 import { Container } from "./styles";
-import { SlideText } from "../SliderText";
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
-
-
-
 interface MainListContainerProps {
     title: string,
+    columns?: number,
     children?: React.ReactNode
 }
 
-export function MainListContainer({ title, children }: MainListContainerProps){
+export function CardSlider({ title, columns, children }: MainListContainerProps){
     const carousel = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
 
@@ -21,14 +18,15 @@ export function MainListContainer({ title, children }: MainListContainerProps){
         setWidth(scrollWidth - offsetWidth);
     }, []);
 
+
     return(
-        <Container>
+        <Container columns={columns}>
             <h1>{title}</h1>
-                <motion.div ref={carousel} className="card-container" whileTap={{cursor: "grabbing"}}>
-                    <motion.div className="row" drag="x" dragConstraints={{left: -width, right: 0}}>
-                        {children}
-                    </motion.div>
+            <motion.div ref={carousel} className="card-container" whileTap={{cursor: "grabbing"}}>
+                <motion.div className="row" drag="x" dragConstraints={{left: -width, right: 0}}>
+                    {children}
                 </motion.div>
+            </motion.div>
         </Container>
-    );
+    )
 }

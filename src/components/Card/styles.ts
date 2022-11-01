@@ -65,11 +65,9 @@ export const Container = styled.article<CardProps>`
         }
     }
 
-    &.type2 {
-        display: flex;
-        
 
-        
+    ${props => props.type === 2 && `
+        display: flex;
 
         figure.cover {
             width: 6rem;
@@ -111,5 +109,5 @@ export const Container = styled.article<CardProps>`
             justify-content: center;
             row-gap: 10px;
         }
-    }
+    `}
 `;

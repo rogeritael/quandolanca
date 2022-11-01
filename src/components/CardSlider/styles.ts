@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-export const Container = styled.section`
+interface SliderProps {
+    columns?: number
+}
+
+export const Container = styled.section<SliderProps>`
     padding: 2rem;
     margin-bottom: 2rem;
+
     h1 {
         margin-bottom: 1rem;
         color: #fff;
@@ -10,15 +15,27 @@ export const Container = styled.section`
 
     .card-container {
         width: 100%;
-        max-height: 32rem;
         overflow: hidden;
         cursor: grab;
         overflow: hidden;
-          
+        
+
+
         .row {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+
+            ${props => props.columns === 1 && `
+                display: flex;
+                column-gap: 1rem;
+
+                .card-container {
+                    cursor: grab;
+                    overflow: hidden;
+                    min-height: 200px;
+                } 
+            `}
         }
     }
 
