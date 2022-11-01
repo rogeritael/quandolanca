@@ -11,21 +11,22 @@ interface MobileMenuProps {
 const pages = [{
     title: "Inicio",
     url: "/",
-    id: 1
-},{
+    id: 0
+},
+{
     title: "Jogos",
     url: "/games",
-    id: 2
+    id: 1
 },
 {
     title: "Filmes e Séries",
-    url: "/games",
-    id: 3
+    url: "/series",
+    id: 2
 },
 {
     title: "Recém Lançados",
-    url: "/games",
-    id: 4
+    url: "/recem-lancados",
+    id: 3
 }];
 
 export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps){

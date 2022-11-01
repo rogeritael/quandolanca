@@ -6,22 +6,26 @@ import { FaBars } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { Container } from "./styles";
 import { AppModal } from "../Modal";
-import { NewReleaseForm } from "../NewReleaseForm";
 import { MobileMenu } from "../MobileMenu";
 
 const pages = [{
+    title: "Inicio",
+    url: "/",
+    id: 0
+},
+{
     title: "Jogos",
     url: "/games",
     id: 1
 },
 {
     title: "Filmes e Séries",
-    url: "/",
+    url: "/series",
     id: 2
 },
 {
     title: "Recém Lançados",
-    url: "/",
+    url: "/recem-lancados",
     id: 3
 }];
 

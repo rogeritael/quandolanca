@@ -8,9 +8,10 @@ export function ResultsNotFound(){
             <h1>Desculpe</h1>
             <figure>
                 <Image
-                    src="/notfound-image.png"
+                    src="/astronauta2.png"
                     alt="imagem de nenhum resultado encontrado"
                     layout="fill"
+                    objectFit="cover"
                 />
             </figure>
             <p>Não conseguimos encontrar nenhum resultado relacionado à sua pesquisa</p>

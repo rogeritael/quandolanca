@@ -25,10 +25,9 @@ export const Container = styled.section<SliderProps>`
             width: 100%;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-
             ${props => props.columns === 1 && `
                 display: flex;
-                column-gap: 1rem;
+                column-gap: 2rem;
 
                 .card-container {
                     cursor: grab;
@@ -38,6 +37,27 @@ export const Container = styled.section<SliderProps>`
             `}
         }
     }
+
+    .voidlist-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.3;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: -20px;
+
+        figure.voidlist-image {
+            height: 200px;
+            width: 150px;
+            pointer-events: none;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+    }
+
+    
 
     @media (max-width: 1024px){
         .card-container .row {

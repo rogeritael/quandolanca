@@ -5,26 +5,20 @@ export const Container = styled.section`
     display: grid;
     row-gap: 3rem;
     grid-template-columns: repeat(5, 1fr);
-
-
     article {
         margin: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
         .remove-button {
                 display: none;
                 background-color: red;
             }
-
     }
-
     @media (max-width: 1024px){
         grid-template-columns: repeat(4, 1fr);
     }
-
     @media (max-width: 860px){
         grid-template-columns: repeat(3, 1fr);
     }
@@ -33,24 +27,5 @@ export const Container = styled.section`
     }
     @media (max-width: 430px){
         grid-template-columns: 1fr;
-        article {
-            figure.cover {
-                height: 20rem;
-                width: 15rem;
-            }
-
-            .release-info {
-                margin-top: 1rem;
-                span {
-                    font-size: 1rem;
-                }
-
-                p.title {
-                    font-size: 1.25rem;
-                }
-
-               
-            }
-        }
     }
 `;

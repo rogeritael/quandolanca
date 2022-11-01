@@ -1,6 +1,7 @@
 import { Container } from "./styles";
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/legacy/image";
 
 interface MainListContainerProps {
     title: string,
@@ -27,6 +28,20 @@ export function CardSlider({ title, columns, children }: MainListContainerProps)
                     {children}
                 </motion.div>
             </motion.div>
+
+            {!children && (
+                <div className="voidlist-container">
+                    <figure className="voidlist-image">
+                        <Image
+                            src="/astronauta.png"
+                            alt=""
+                            layout="fill"
+                            object-fit="cover"
+                        />
+                    </figure>
+                    <h2>Nenhum item foi adicionado a sua lista ainda</h2>
+                </div>
+            )}
         </Container>
     )
 }

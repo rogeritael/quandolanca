@@ -30,9 +30,22 @@ export const Container = styled.section`
     }
 
     figure {
-        width: 30rem;
-        height: 30rem;
+        margin: 1rem 0;
+        width: 20rem;
+        height: 20rem;
         position: relative;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 578px){
+        figure{
+            width: 15rem;
+            height: 15rem;
+            margin-top: 2rem;
+        }
+        p {
+            font-size: 1.15rem;
+        }
     }
 
 `;
