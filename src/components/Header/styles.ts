@@ -170,8 +170,8 @@ export const Container = styled.header`
             }
 
             svg {
-                margin-right: 1rem;
-                font-size: 200%;
+                margin-right: .5rem;
+                color: var(--gray-2);
             }
         }
 
@@ -185,6 +185,7 @@ export const Container = styled.header`
 
         .toggle {
             font-size: 1.5rem;
+            margin-right: -.25rem;
             display: block;
             color: var(--gray-2);
         }

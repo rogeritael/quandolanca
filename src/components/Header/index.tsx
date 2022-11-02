@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/legacy/image";
 import { useState } from "react";
-import { AiFillBell } from 'react-icons/ai';
+import { BsFillBellFill } from 'react-icons/bs';
 import { BiLogIn } from 'react-icons/bi';
 import { FaBars } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
 import { Container } from "./styles";
 import { AppModal } from "../Modal";
 import { MobileMenu } from "../MobileMenu";
+import { NotificationsModal } from "../NotificationsModal";
 
 const pages = [{
     title: "Inicio",
@@ -31,11 +32,12 @@ const pages = [{
 }];
 
 export function Header(){
-    const [isLogged, setIsLogged] = useState(false);
+    const [isLogged, setIsLogged] = useState(true);
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
     const [activeLink, setActiveLink] = useState(0);
+    const [isNotificationsVisible, setIsNotificationsVisible] = useState(false)
 
     function handleOpenNotificationModal(){
         SetIsNotificationModalOpen(true);
@@ -51,6 +53,7 @@ export function Header(){
 
     return(
         <>
+        <NotificationsModal isVisible={isNotificationsVisible} setVisible={setIsNotificationsVisible} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
         <Container>
             <div className="header-top">
@@ -62,7 +65,7 @@ export function Header(){
                 </form>
                 { isLogged ? (
                     <div className="user-info">
-                        <AiFillBell onClick={handleOpenNotificationModal}/>
+                        <BsFillBellFill onClick={() => setIsNotificationsVisible(true)}/>
 
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
