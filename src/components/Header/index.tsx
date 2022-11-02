@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/legacy/image";
 import { useState } from "react";
-import { AiOutlinePlus, AiFillBell } from 'react-icons/ai';
+import { AiFillBell } from 'react-icons/ai';
 import { BiLogIn } from 'react-icons/bi';
 import { FaBars } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';

@@ -1,6 +1,7 @@
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { Container } from "./styles";
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 
 interface FormProps {
@@ -11,6 +12,10 @@ interface FormProps {
 export function Form({ image, type }: FormProps){
     return(
         <Container>
+            <Link href="/" className="voltar">
+                <AiOutlineArrowLeft />
+                <p>Home</p>
+            </Link>
             {type === "login" ? <h1>Login</h1> : <h1>Cadastrar</h1> }
             
             <figure>
@@ -29,7 +34,7 @@ export function Form({ image, type }: FormProps){
             {type === "register" && (
                 <label>
                     <p>Nome:</p>
-                    <input type="password" placeholder="Digite seu nome..."/>
+                    <input type="text" placeholder="Digite seu nome..."/>
                 </label>
             )}
             <label>

@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const arrowAnimation = keyframes`
+    50% {
+        transform: translateX(-10px);
+    }
+`;
 
 export const Container = styled.form`
 
@@ -7,6 +13,8 @@ export const Container = styled.form`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+
+    
 
     h1, figure {
         margin: 0 auto;
@@ -74,6 +82,32 @@ export const Container = styled.form`
             &:hover {
                 color: #fff;
             }
+        }
+    }
+
+    .voltar {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 1rem;
+        left: 2rem;
+
+        &:hover {
+            p {
+                text-decoration: underline;
+            }
+        }
+
+        svg {
+            animation: ${arrowAnimation} 1s infinite;
+        }
+
+        p, svg {
+            font-size: 1rem;
+        }
+
+        p {
+            margin-left: 5px;
         }
     }
 `;
