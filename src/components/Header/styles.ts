@@ -111,6 +111,7 @@ export const Container = styled.header`
 
             p {
                 font-weight: bold;
+                margin-left: 1rem;
                 span.logout-link {
                     display: block;
                     cursor: pointer;

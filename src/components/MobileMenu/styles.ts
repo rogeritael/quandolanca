@@ -9,7 +9,6 @@ export const Container = styled.div<MobileMenuProps>`
     flex-direction: column;
     position: fixed;
     background-color: rgba(32,32,32,0.9);
-    justify-content: space-between;
     width: 100vw;
     height: 100vh;
     left: 0;
@@ -33,17 +32,16 @@ export const Container = styled.div<MobileMenuProps>`
     }
 
     ul {
-        margin-top: -2rem;
+        margin-top: 5rem;
         transition: 500ms;
         transform: scale(0.7);
 
         li {
-            margin: 3rem;
+            margin: 2rem;
             font-size: 1.5rem;
             text-align: center;
             
             a {
-                /* color: #fff; */
                 color: var(--gray-3);
             }
         }

@@ -103,6 +103,7 @@ export const Container = styled.div<notificationsModalProps>`
                 transform: translate(5rem, -5rem);
                 opacity: 0;
                 transition: 500ms;
+                pointer-events: none;
             }
             h2 {
                 color: rgba(0,0,0,0.3);

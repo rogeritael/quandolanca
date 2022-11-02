@@ -77,14 +77,14 @@ export function Header(){
                                 object-fit="cover"
                             />
                         </figure> */}
-                        <p>Rosa <span className="logout-link">sair</span> </p>
+                        <p>Roger Rosa <span className="logout-link">sair</span> </p>
                     </div>
                 ) : (
                     <Link href="/login" className="login-link">LOGIN | CRIAR CONTA</Link>
                 )}
                 <div className="icons">
                     <FaBars className="toggle" onClick={() => setIsMenuOpen(true)}/>
-                    <Link href="/login" className="login-icon"><BiLogIn /></Link>
+                    {!isLogged &&( <Link href="/login" className="login-icon"><BiLogIn /></Link> )}
                 </div>
             </div>
             <nav className="pages">

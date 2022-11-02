@@ -27,7 +27,14 @@ const pages = [{
     title: "Recém Lançados",
     url: "/recem-lancados",
     id: 3
-}];
+},
+{
+    title: "log out",
+    url: "/",
+    id: 3
+}
+
+];
 
 export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps){
     
@@ -50,7 +57,6 @@ export function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps){
                     ))
                 }
             </ul>
-            <p>sair</p>
         </Container>
     )
 }
