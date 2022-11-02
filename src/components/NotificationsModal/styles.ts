@@ -85,6 +85,32 @@ export const Container = styled.div<notificationsModalProps>`
                 text-align: left;
             }
         }
+
+        .empty-notifications-alert {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            figure {
+                width: 200px;
+                height: 200px;
+                position: relative;
+                opacity: 0.3;
+                margin-bottom: 2rem;
+                transform: translate(5rem, -5rem);
+                opacity: 0;
+                transition: 500ms;
+            }
+            h2 {
+                color: rgba(0,0,0,0.3);
+                transition: 500ms;
+                transform: translate(-5rem, 5rem);
+                opacity: 0;
+            }
+        }
     }
 
     @media (max-width: 480px){
@@ -109,6 +135,20 @@ export const Container = styled.div<notificationsModalProps>`
 
             .notification-item {
                 transform: translateY(0);
+            }
+
+            .empty-notifications-alert{
+                figure {
+                    transform: translate(0, 0);
+                    opacity: 0.3;
+                }
+
+                h2 {
+                    color: rgba(0,0,0,0.3);
+                    transition: 500ms;
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
             }
         }
     `}

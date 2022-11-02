@@ -1,6 +1,7 @@
 import { Container } from "./styles";
 import { AiOutlineClose } from 'react-icons/ai';
-import { SetStateAction, useEffect } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import Image from "next/legacy/image";
 
 const notifications = [
     {
@@ -31,6 +32,8 @@ interface NotificationsModal {
 }
 
 export function NotificationsModal({ isVisible, setVisible }: NotificationsModal){
+    const [notificationsExists, setNotificationsExists]= useState(false);
+
     useEffect(() => {
         document.body.style.overflowY = isVisible ? "hidden" : "auto";
     }, [isVisible]);
@@ -45,13 +48,27 @@ export function NotificationsModal({ isVisible, setVisible }: NotificationsModal
                     <h1>Atividade</h1>
                     <AiOutlineClose onClick={() => setVisible(false)} />
                 </div>
-
-                {notifications.map(notification => (
-                    <div key={notification.id} className="notification-item">
-                        <p className="date">hoje</p>
-                        <p><span>{notification.type}: </span>{notification.description}</p>
+                {notificationsExists == true ? 
+                (<>
+                    {notifications.map(notification => (
+                        <div key={notification.id} className="notification-item">
+                            <p className="date">hoje</p>
+                            <p><span>{notification.type}: </span>{notification.description}</p>
+                        </div>
+                    ))}
+                </>) : (
+                    <div className="empty-notifications-alert">
+                        <figure>
+                            <Image
+                                src="/bell.png"
+                                alt=""
+                                layout="fill"
+                                objectFit="contain"
+                            />
+                        </figure>
+                        <h2>Não há nada por aqui</h2>
                     </div>
-                ))}
+                )}
             </div>
         </Container>
     );

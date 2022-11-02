@@ -69,14 +69,14 @@ export function Header(){
 
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
-                        <figure className="user-image">
+                        {/* <figure className="user-image">
                             <Image
                                 src="/perfil.png"
                                 alt=""
                                 layout="fill"
                                 object-fit="cover"
                             />
-                        </figure>
+                        </figure> */}
                         <p>Rosa <span className="logout-link">sair</span> </p>
                     </div>
                 ) : (
