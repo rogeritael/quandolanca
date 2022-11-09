@@ -9,6 +9,7 @@ import { Container } from "./styles";
 import { AppModal } from "../Modal";
 import { MobileMenu } from "../MobileMenu";
 import { NotificationsModal } from "../NotificationsModal";
+import { FlashMessageCard } from "../FlashMessageCard";
 
 const pages = [{
     title: "Inicio",
@@ -32,7 +33,7 @@ const pages = [{
 }];
 
 export function Header(){
-    const [isLogged, setIsLogged] = useState(true);
+    const [isLogged, setIsLogged] = useState(false);
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
@@ -53,6 +54,7 @@ export function Header(){
 
     return(
         <>
+        
         <NotificationsModal isVisible={isNotificationsVisible} setVisible={setIsNotificationsVisible} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
         <Container>

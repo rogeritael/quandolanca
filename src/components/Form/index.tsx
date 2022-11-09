@@ -2,16 +2,40 @@ import Image from "next/legacy/image";
 import Link from "next/link";
 import { Container } from "./styles";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { useState, useContext } from "react";
+import { Context } from '../../context/UserContext';
 
 
 interface FormProps {
     image: string,
-    type: "login" | "register"
+    type: "login" | "register",
 }
 
 export function Form({ image, type }: FormProps){
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmpassword, setConfirmpassword] = useState("");
+    const { register, login } = useContext(Context);
+    const [token, setToken] = useState("")
+
+    async function handleRegister(e: Event){
+        e.preventDefault();
+        const user = {
+            name, email, password, confirmpassword
+        }
+
+        await register(user);
+    }
+
+    async function handleLogin(e: Event){
+        e.preventDefault();
+        const user = { email, password }
+        let receivedToken = await login(user);
+    }
+
     return(
-        <Container>
+        <Container onSubmit={(e) => type === "login" ? handleLogin(e) : handleRegister(e)}>
             <Link href="/" className="voltar">
                 <AiOutlineArrowLeft />
                 <p>Home</p>
@@ -34,18 +58,28 @@ export function Form({ image, type }: FormProps){
             {type === "register" && (
                 <label>
                     <p>Nome:</p>
-                    <input type="text" placeholder="Digite seu nome..."/>
+                    <input type="text" placeholder="Digite seu nome..." value={name} onChange={e => setName(e.target.value)} />
                 </label>
             )}
             <label>
                 <p>Email:</p>
-                <input type="email" placeholder="Digite seu email..."/>
+                <input type="email" placeholder="Digite seu email..." value={email} onChange={e => setEmail(e.target.value)}/>
             </label>
             <label>
                 <p>Senha:</p>
-                <input type="password" placeholder="Digite sua senha..."/>
+                <input type="password" placeholder="Digite sua senha..." value={password} onChange={e => setPassword(e.target.value)}/>
             </label>
-            <button type="submit">{type === "login" ? "logar" : "cadastrar"}</button>
+            {type === "register" && (
+                <label>
+                    <p>Confirmação de Senha:</p>
+                    <input type="password" placeholder="Confirme a sua senha..." value={confirmpassword} onChange={e => setConfirmpassword(e.target.value)}/>
+                </label>
+            )}
+            <button
+                type="submit"
+            >
+                {type === "login" ? "logar" : "cadastrar"}
+            </button>
 
             
             {type === "login" ?
