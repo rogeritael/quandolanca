@@ -41,7 +41,8 @@ export function Header(){
     const [activeLink, setActiveLink] = useState(0);
     const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
 
-    const [user, setUser] = useState({})
+    const [username, setUsername] = useState()
+    const [userList, setUserList] = useState([]);
     const { isAuthenticated, logout } = useContext(Context);
     
     //teste
@@ -56,18 +57,20 @@ export function Header(){
             setArray(response.data)
         })
 
-        // if(isAuthenticated){
-        //     api({
-        //         method: 'get',
-        //         url: 'users/getuser',
-        //         headers: {
-        //             authorization: localStorage.getItem('token')
-        //         }
-        //     })
-        //     .then(response => {
-        //         setUser(response.data);
-        //     })
-        // }
+        if(isAuthenticated){
+            api({
+                method: 'get',
+                url: 'users/getuser',
+                headers: {
+                    authorization: JSON.parse(localStorage.getItem('token'))
+                }
+            })
+            .then(response => {
+                setUsername(response.data.user.name);
+                setUserList(response.data.user.userlists)
+            })
+            .catch(err => alert(err.data))
+        }
     },[]);
     
 
@@ -102,7 +105,7 @@ export function Header(){
 
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
-                        <p>Roger Rosa <span className="logout-link" onClick={() => logout()}>sair</span> </p>
+                        <p>{username}<span className="logout-link" onClick={() => logout()}>sair</span> </p>
                     </div>
                 ) : (
                     <Link href="/login" className="login-link">LOGIN | CRIAR CONTA</Link>
