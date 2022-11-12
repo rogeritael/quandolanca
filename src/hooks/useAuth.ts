@@ -18,7 +18,6 @@ interface LoginProps {
 export function useAuth(){
     const { setFlashMessage } = useFlashMessage();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken] = useState("");
     const router = useRouter();
 
     async function register({name, email, password, confirmpassword}: RegisterProps){
@@ -53,14 +52,15 @@ export function useAuth(){
             })
             .then(response => {return response.data});
 
-            setIsAuthenticated(true);
             localStorage.setItem('token', JSON.stringify(data.token));
+            setIsAuthenticated(true);
             router.push('/');
 
         }catch(err: any){
             message = err.response.data.message;
             type = 'error';
         }
+        
         setFlashMessage({message, type});
     }
 

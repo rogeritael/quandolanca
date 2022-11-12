@@ -39,7 +39,7 @@ export function CardSlider({ title, columns, children }: MainListContainerProps)
                             object-fit="cover"
                         />
                     </figure>
-                    <h2>Nenhum item foi adicionado a sua lista ainda</h2>
+                    <h2>Não há nada por aqui ainda :(</h2>
                 </div>
             )}
         </Container>

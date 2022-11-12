@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/legacy/image";
-import { useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { BsFillBellFill } from 'react-icons/bs';
 import { BiLogIn } from 'react-icons/bi';
 import { FaBars } from 'react-icons/fa';
@@ -10,6 +10,8 @@ import { AppModal } from "../Modal";
 import { MobileMenu } from "../MobileMenu";
 import { NotificationsModal } from "../NotificationsModal";
 import { FlashMessageCard } from "../FlashMessageCard";
+import { api } from "../../utils/api";
+import { Context } from "../../context/UserContext";
 
 const pages = [{
     title: "Inicio",
@@ -33,12 +35,41 @@ const pages = [{
 }];
 
 export function Header(){
-    const [isLogged, setIsLogged] = useState(false);
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
     const [activeLink, setActiveLink] = useState(0);
-    const [isNotificationsVisible, setIsNotificationsVisible] = useState(false)
+    const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
+
+    const [user, setUser] = useState({})
+    const { isAuthenticated, logout } = useContext(Context);
+    
+    //teste
+    const [array, setArray] = useState([{name:'oi', id: '1'}]);
+
+    useEffect(() => {
+        api({
+            method: 'get',
+            url: '/releases/recently'
+        })
+        .then(response => {
+            setArray(response.data)
+        })
+
+        // if(isAuthenticated){
+        //     api({
+        //         method: 'get',
+        //         url: 'users/getuser',
+        //         headers: {
+        //             authorization: localStorage.getItem('token')
+        //         }
+        //     })
+        //     .then(response => {
+        //         setUser(response.data);
+        //     })
+        // }
+    },[]);
+    
 
     function handleOpenNotificationModal(){
         SetIsNotificationModalOpen(true);
@@ -54,7 +85,7 @@ export function Header(){
 
     return(
         <>
-        
+            
         <NotificationsModal isVisible={isNotificationsVisible} setVisible={setIsNotificationsVisible} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
         <Container>
@@ -65,28 +96,20 @@ export function Header(){
                         <FiSearch />
                     </button>
                 </form>
-                { isLogged ? (
+                { isAuthenticated ? (
                     <div className="user-info">
                         <BsFillBellFill onClick={() => setIsNotificationsVisible(true)}/>
 
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
-                        {/* <figure className="user-image">
-                            <Image
-                                src="/perfil.png"
-                                alt=""
-                                layout="fill"
-                                object-fit="cover"
-                            />
-                        </figure> */}
-                        <p>Roger Rosa <span className="logout-link">sair</span> </p>
+                        <p>Roger Rosa <span className="logout-link" onClick={() => logout()}>sair</span> </p>
                     </div>
                 ) : (
                     <Link href="/login" className="login-link">LOGIN | CRIAR CONTA</Link>
                 )}
                 <div className="icons">
                     <FaBars className="toggle" onClick={() => setIsMenuOpen(true)}/>
-                    {!isLogged &&( <Link href="/login" className="login-icon"><BiLogIn /></Link> )}
+                    {!isAuthenticated &&( <Link href="/login" className="login-icon"><BiLogIn /></Link> )}
                 </div>
             </div>
             <nav className="pages">
@@ -96,8 +119,6 @@ export function Header(){
                     </Link>
                 ))}
             </nav>
-            
-            
         </Container>
         </>
     );

@@ -31,7 +31,7 @@ export function Form({ image, type }: FormProps){
     async function handleLogin(e: Event){
         e.preventDefault();
         const user = { email, password }
-        let receivedToken = await login(user);
+        await login(user);
     }
 
     return(
@@ -89,6 +89,4 @@ export function Form({ image, type }: FormProps){
             }
         </Container>
     )
-
-    // {type === "login" ? : }
 }
