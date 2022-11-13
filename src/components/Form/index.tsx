@@ -19,7 +19,7 @@ export function Form({ image, type }: FormProps){
     const { register, login } = useContext(Context);
     const [token, setToken] = useState("")
 
-    async function handleRegister(e: Event){
+    async function handleRegister(e: React.FormEvent){
         e.preventDefault();
         const user = {
             name, email, password, confirmpassword
@@ -28,7 +28,7 @@ export function Form({ image, type }: FormProps){
         await register(user);
     }
 
-    async function handleLogin(e: Event){
+    async function handleLogin(e: React.FormEvent){
         e.preventDefault();
         const user = { email, password }
         await login(user);

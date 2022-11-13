@@ -6,41 +6,52 @@ import { useEffect, useState, useContext } from "react";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
 
+interface ListProps {
+  id: number,
+  name: string,
+  date: string
+}
+
 export default function Home() {
-  const [recommended, setRecommended] = useState([{name:'oi', id: '1'}]);
-  const [mainList, setMainList] = useState([])
+  const [recommended, setRecommended] = useState<ListProps[]>([]);
+  const [mainList, setMainList] = useState<ListProps[]>([])
   const { isAuthenticated } = useContext(Context);
 
   useEffect(() => {
-      api({
-          method: 'get',
-          url: '/releases/nextreleases'
-      })
-      .then(response => {
-        setRecommended(response.data)
-      });
+      
+    api({
+        method: 'get',
+        url: '/releases/nextreleases'
+    })
+    .then(response => {
+      setRecommended(response.data)
+    });
 
-      isAuthenticated ?
-        api({
-          method: 'get',
-          url: '/users/getuser',
-          headers: {
-            authorization: JSON.parse(localStorage.getItem('token'))
-          }
-        })
-        .then(response => {
-          setMainList(response.data.user.userlists)
-        })
-      :
-        api({
-          method: 'get',
-          url: '/releases/recently'
-        })
-        .then(response => {
-          setMainList(response.data)
-        })
   },[])
 
+  useEffect(() => {
+
+    isAuthenticated ?
+      api({
+        method: 'get',
+        url: '/users/getuser',
+        headers: {
+          authorization: JSON.parse(localStorage.getItem('token') || '{}')
+        }
+      })
+      .then(response => {
+        setMainList(response.data.user.userlists)
+      })
+    :
+      api({
+        method: 'get',
+        url: '/releases/recently'
+      })
+      .then(response => {
+        setMainList(response.data)
+      })
+    
+  }, [])
 
   return (
     <>
@@ -50,7 +61,8 @@ export default function Home() {
           <Card
             key={item.id}
             title={item.name}
-            date={item.date}  
+            date={item.date}
+            id={item.id}
           />
           )))}
       </CardSlider>
@@ -61,7 +73,8 @@ export default function Home() {
             key={release.id}
             type={2}
             title={release.name}
-            date={release.date}  
+            date={release.date}
+            id={release.id}
           />
           ))}
       </CardSlider>

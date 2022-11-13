@@ -7,9 +7,15 @@ import { ResultsNotFound } from "../components/ResultsNotFound"
 import { Container } from "../styles/games-styles"
 import { api } from "../utils/api"
 
+interface ListProps {
+    id: number,
+    name: string,
+    date: string
+}
+
 export default function Series(){
     const [ isResultsFound, SetIsResultsFound ] = useState(true);
-    const [seriesList, setSeriesList] = useState([]);
+    const [seriesList, setSeriesList] = useState<ListProps[]>([]);
 
     useEffect(() => {
         api({
@@ -26,7 +32,7 @@ export default function Series(){
 
     return(
         <>
-            <Header />
+            <Header/>
             <Container>
                 {isResultsFound ? (
                     <>
@@ -35,6 +41,7 @@ export default function Series(){
                             {seriesList.map(item => (
                                 <Card
                                     key={item.id}
+                                    id={item.id}
                                     title={item.name}
                                     date={item.date}
                                 />

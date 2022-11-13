@@ -34,6 +34,10 @@ const pages = [{
     id: 3
 }];
 
+interface HeaderProps {
+    active?: number
+}
+
 export function Header(){
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -41,12 +45,12 @@ export function Header(){
     const [activeLink, setActiveLink] = useState(0);
     const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
 
-    const [username, setUsername] = useState()
+    const [username, setUsername] = useState('')
     const [userList, setUserList] = useState([]);
     const { isAuthenticated, logout } = useContext(Context);
     
     //teste
-    const [array, setArray] = useState([{name:'oi', id: '1'}]);
+    const [array, setArray] = useState([]);
 
     useEffect(() => {
         api({
@@ -62,7 +66,7 @@ export function Header(){
                 method: 'get',
                 url: 'users/getuser',
                 headers: {
-                    authorization: JSON.parse(localStorage.getItem('token'))
+                    authorization: JSON.parse(localStorage.getItem('token') || '{}')
                 }
             })
             .then(response => {
@@ -71,6 +75,20 @@ export function Header(){
             })
             .catch(err => alert(err.data))
         }
+
+        const url = window.location.href.replace('http://localhost:3000/', '')
+        switch(url){
+            case 'games':
+                setActiveLink(1);
+                break;
+            case 'series':
+                setActiveLink(2);
+                break;
+            case 'recem-lancados':
+                setActiveLink(3);
+                break;
+        }
+        // alert(document.URL.split);
     },[]);
     
 

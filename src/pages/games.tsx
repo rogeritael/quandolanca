@@ -8,9 +8,15 @@ import { ResultsNotFound } from "../components/ResultsNotFound"
 import { Container } from "../styles/games-styles"
 import { api } from "../utils/api"
 
+interface IGamesList {
+    id: number,
+    name: string,
+    date: string
+}
+
 export default function GamesPage(){
     const [ isResultsFound, SetIsResultsFound ] = useState(false);
-    const [gamesList, setGamesList] = useState([]);
+    const [gamesList, setGamesList] = useState<IGamesList[]>([]);
 
     useEffect(() => {
         api({
@@ -27,7 +33,7 @@ export default function GamesPage(){
 
     return(
         <>
-            <Header />
+            <Header/>
             <Container>
                 {gamesList.length > 0 ? (
                     <>
@@ -35,6 +41,7 @@ export default function GamesPage(){
                         <GamesContainer>
                             {gamesList.map(item => (
                                 <Card
+                                    id={item.id}
                                     key={item.id}
                                     title={item.name}
                                     date={item.date}
