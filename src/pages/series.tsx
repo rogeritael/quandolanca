@@ -14,8 +14,8 @@ interface ListProps {
 }
 
 export default function Series(){
-    const [ isResultsFound, SetIsResultsFound ] = useState(true);
     const [seriesList, setSeriesList] = useState<ListProps[]>([]);
+    const [ isResultsFound, SetIsResultsFound ] = useState(true);
 
     useEffect(() => {
         api({
@@ -23,10 +23,11 @@ export default function Series(){
             url: '/releases/getcategory/series'
         })
         .then(response => {
-            setSeriesList(response.data)
+            setSeriesList(response.data);
+            response.data.length < 1 && SetIsResultsFound(false);
         })
         .catch(err => {
-            setSeriesList([]);
+            SetIsResultsFound(false)
         })
     },[]);
 
@@ -34,7 +35,7 @@ export default function Series(){
         <>
             <Header/>
             <Container>
-                {isResultsFound ? (
+                {seriesList.length > 0 && (
                     <>
                         <h1>Filmes e Séries</h1>
                         <GamesContainer>
@@ -48,10 +49,10 @@ export default function Series(){
                             ))}
                         </GamesContainer>
                     </>
-                ) : (
-                    <ResultsNotFound />
                 )}
                 
+                {isResultsFound === false && <ResultsNotFound />}
+                    
             </Container>
             <Footer />
         </>

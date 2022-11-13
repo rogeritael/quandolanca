@@ -2,6 +2,8 @@ import { Container } from "./styles";
 import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
 import { useFlashMessage } from "../../hooks/useFlashMessage";
 import { api } from "../../utils/api";
+import { useContext } from "react";
+import { Context } from "../../context/UserContext";
 
 interface CardProps {
     type?: number,
@@ -14,6 +16,7 @@ interface CardProps {
 
 export function Card({ type, isLogged, title, date, id }: CardProps){
     const { setFlashMessage } = useFlashMessage();
+    const { isAuthenticated } = useContext(Context);
 
     function handleAddToMyList(id: number){
         let message = 'Adicionado com sucesso'
@@ -54,7 +57,7 @@ export function Card({ type, isLogged, title, date, id }: CardProps){
                     <>
                         <span>{date} DIAS</span>
                         <p className="title">{title}</p>
-                        {isLogged === true && (
+                        {isAuthenticated && (
                             <button className="remove-button">remover <AiOutlineClose /></button>
                         )}
                     </> 

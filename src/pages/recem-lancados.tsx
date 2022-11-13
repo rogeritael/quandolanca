@@ -24,10 +24,11 @@ export default function RecemLancados(){
             url: '/releases/recently'
         })
         .then(response => {
-            setRecentList(response.data)
+            setRecentList(response.data);
+            response.data.length < 1 && SetIsResultsFound(false)
         })
         .catch(err => {
-            setRecentList([]);
+            SetIsResultsFound(false)
         })
     },[]);
 
@@ -35,7 +36,7 @@ export default function RecemLancados(){
         <>
             <Header/>
             <Container>
-                {isResultsFound ? (
+                {recentList.length > 0 && (
                     <>
                         <h1>Recém Lançados</h1>
                         <GamesContainer>
@@ -49,9 +50,9 @@ export default function RecemLancados(){
                             ))}
                         </GamesContainer>
                     </>
-                ) : (
-                    <ResultsNotFound />
                 )}
+                
+                {isResultsFound === false && (<ResultsNotFound />) }
                 
             </Container>
             <Footer />
