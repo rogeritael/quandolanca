@@ -100,6 +100,7 @@ export function Card({ type, title, date, id, mainCard }: CardProps){
                     <AiOutlinePlusCircle />
                 </span>
             </figure>
+            <span className="released-marker">LANÇADO</span>
             <div className="release-info">
                 {type === 2 ? (
                     <>

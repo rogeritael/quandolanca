@@ -32,7 +32,7 @@ interface NotificationsModal {
 }
 
 export function NotificationsModal({ isVisible, setVisible }: NotificationsModal){
-    const [notificationsExists, setNotificationsExists]= useState(false);
+    const [notificationsExists, setNotificationsExists]= useState(true);
 
     useEffect(() => {
         document.body.style.overflowY = isVisible ? "hidden" : "auto";

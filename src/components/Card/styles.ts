@@ -8,11 +8,22 @@ interface CardProps {
 
 export const Container = styled.article<CardProps>`
     margin-bottom: 1rem;
+    position: relative;
 
     .over {
         display: none;
     }
 
+    .released-marker {
+        position: absolute;
+        background-color: goldenrod;
+        color: #fff;
+        font-size: .8rem;
+        padding: 0.15rem 1rem;
+        font-weight: bold;
+        border-radius: 3px 0 0 0;
+        top: 0;
+    }
 
     figure.cover {
         width: 12rem;
