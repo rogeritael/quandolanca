@@ -13,8 +13,9 @@ interface ListProps {
 }
 
 export default function Home() {
+  const [mainList, setMainList] = useState<ListProps[]>([]);
+  const [ isResultsFound, SetIsResultsFound ] = useState(true);
   const [recommended, setRecommended] = useState<ListProps[]>([]);
-  const [mainList, setMainList] = useState<ListProps[]>([])
   const { isAuthenticated } = useContext(Context);
 
   useEffect(() => {
@@ -40,7 +41,11 @@ export default function Home() {
         }
       })
       .then(response => {
-        setMainList(response.data.user.userlists)
+        setMainList(response.data.user.userlists);
+        response.data.user.userlists.length < 1 && SetIsResultsFound(false);
+      })
+      .catch(err => {
+        SetIsResultsFound(false)
       })
     :
       api({
@@ -48,10 +53,14 @@ export default function Home() {
         url: '/releases/recently'
       })
       .then(response => {
-        setMainList(response.data)
+        setMainList(response.data);
+        response.data.length < 1 && SetIsResultsFound(false)
+      })
+      .catch(err => {
+          SetIsResultsFound(false)
       })
     
-  }, [])
+  }, [mainList, isAuthenticated])
 
   return (
     <>
@@ -60,6 +69,7 @@ export default function Home() {
         {mainList.length > 0 && ( mainList.map(item => (
           <Card
             key={item.id}
+            mainCard={isAuthenticated ? true : false}
             title={item.name}
             date={item.date}
             id={item.id}

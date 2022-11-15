@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 interface CardProps {
-    type?: number
+    type?: number,
+    mainCard?: boolean,
+    isAuthenticated: boolean
 }
 
 export const Container = styled.article<CardProps>`
@@ -17,8 +19,32 @@ export const Container = styled.article<CardProps>`
         height: 16rem;
         border-radius: 3px;
         overflow: hidden;
+        cursor: pointer;
+        position: relative;
 
         background-color: var(--gray-2);
+
+        .over {
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                color: #fff;
+                font-size: 3rem;
+                filter: opacity(0.2);
+            }
+        }
+
+        &:hover {
+            .over {
+                display: ${props => props.mainCard || !props.isAuthenticated ? 'none' : 'flex'}
+                /* display: none; */
+            }
+        }
     }
 
     .release-info {
@@ -79,26 +105,26 @@ export const Container = styled.article<CardProps>`
             background-color: var(--gray-2);
             cursor: pointer;
 
-            .over {
-                background-color: rgba(0, 0, 0, 0.2);
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                align-items: center;
-                justify-content: center;
+            // .over {
+            //     background-color: rgba(0, 0, 0, 0.2);
+            //     position: absolute;
+            //     width: 100%;
+            //     height: 100%;
+            //     align-items: center;
+            //     justify-content: center;
 
-                svg {
-                    color: #fff;
-                    font-size: 3rem;
-                    filter: opacity(0.2);
-                }
-            }
+            //     svg {
+            //         color: #fff;
+            //         font-size: 3rem;
+            //         filter: opacity(0.2);
+            //     }
+            // }
 
-            &:hover {
-                .over {
-                    display: flex;
-                }
-            }
+            // &:hover {
+            //     .over {
+            //         display: flex;
+            //     }
+            // }
         }
 
         .release-info {

@@ -46,6 +46,7 @@ export default function RecemLancados(){
                                     id={item.id}
                                     title={item.name}
                                     date={item.date}
+                                    mainCard={true}
                                 />
                             ))}
                         </GamesContainer>

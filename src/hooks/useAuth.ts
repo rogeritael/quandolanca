@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../utils/api';
 import { useFlashMessage } from './useFlashMessage';
 import { useRouter } from 'next/router';
@@ -19,6 +19,15 @@ export function useAuth(){
     const { setFlashMessage } = useFlashMessage();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if(token){
+            api.defaults.headers.authorization = JSON.parse(token);
+            setIsAuthenticated(true);
+        }
+    }, [])
 
     async function register({name, email, password, confirmpassword}: RegisterProps){
         let message = "Cadastro realizado com sucesso"

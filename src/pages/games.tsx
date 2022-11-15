@@ -1,12 +1,12 @@
-import React, { useState,useEffect } from "react"
-import { render } from "react-dom"
-import { Card } from "../components/Card"
-import { Footer } from "../components/Footer"
-import { GamesContainer } from "../components/GamesContainer"
-import { Header } from "../components/Header"
-import { ResultsNotFound } from "../components/ResultsNotFound"
-import { Container } from "../styles/games-styles"
-import { api } from "../utils/api"
+import React, { useState,useEffect } from "react";
+import { Card } from "../components/Card" ;
+import { Footer } from "../components/Footer";
+import { GamesContainer } from "../components/GamesContainer";
+import { Header } from "../components/Header";
+import { ResultsNotFound } from "../components/ResultsNotFound";
+import { Container } from "../styles/games-styles";
+import { api } from "../utils/api";
+import moment from 'moment';
 
 interface IGamesList {
     id: number,
@@ -29,7 +29,8 @@ export default function GamesPage(){
         })
         .catch(err => {
             SetIsResultsFound(false)
-        })
+        });
+
     },[]);
 
     return(
