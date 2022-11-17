@@ -6,10 +6,11 @@ import Image from "next/legacy/image";
 interface MainListContainerProps {
     title: string,
     columns?: number,
-    children?: React.ReactNode
+    children?: React.ReactNode,
+    isResultsFound?: boolean
 }
 
-export function CardSlider({ title, columns, children }: MainListContainerProps){
+export function CardSlider({ title, columns, children, isResultsFound }: MainListContainerProps){
     const carousel = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState(0);
 
@@ -29,7 +30,7 @@ export function CardSlider({ title, columns, children }: MainListContainerProps)
                 </motion.div>
             </motion.div>
 
-            {!children && (
+            {isResultsFound === false && (
                 <div className="voidlist-container">
                     <figure className="voidlist-image">
                         <Image

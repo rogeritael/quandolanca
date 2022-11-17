@@ -28,7 +28,7 @@ export default function GamesPage(){
             response.data.length < 1 && SetIsResultsFound(false)
         })
         .catch(err => {
-            SetIsResultsFound(false)
+            SetIsResultsFound(false);
         });
 
     },[]);

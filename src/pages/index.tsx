@@ -6,6 +6,7 @@ import { useEffect, useState, useContext } from "react";
 import { useFlashMessage } from "../hooks/useFlashMessage";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
+import { ResultsNotFound } from "../components/ResultsNotFound";
 
 interface ListProps {
   id: number,
@@ -64,33 +65,33 @@ export default function Home() {
     
   }, [isAuthenticated]);
 
-  async function handleRemoveRelease(id: number){
-    const token = localStorage.getItem('token') || '{}';
-    let message = 'Lançamento removido da sua lista'
-    let type = 'success'
+//   async function handleRemoveRelease(id: number){
+//     const token = localStorage.getItem('token') || '{}';
+//     let message = 'Lançamento removido da sua lista'
+//     let type = 'success'
 
-    await api({
-        method: 'delete',
-        url: `/userlist/remove/${id}`,
-        headers: {
-            authorization: JSON.parse(token)
-        }
-    })
-    .then(response => {
-        message = response.data.message;
-    })
-    .catch(err => {
-        message = err.response.data.message;
-        type = 'error';
-    });
+//     await api({
+//         method: 'delete',
+//         url: `/userlist/remove/${id}`,
+//         headers: {
+//             authorization: JSON.parse(token)
+//         }
+//     })
+//     .then(response => {
+//         message = response.data.message;
+//     })
+//     .catch(err => {
+//         message = err.response.data.message;
+//         type = 'error';
+//     });
 
-    setFlashMessage({message, type});
-}
+//     setFlashMessage({message, type});
+// }
 
   return (
     <>
       <Header />
-      <CardSlider columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
+      <CardSlider isResultsFound={isResultsFound} columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
         {mainList.length > 0 && ( mainList.map(item => (
           <Card
             key={item.id}
@@ -102,6 +103,7 @@ export default function Home() {
             setMainList={setMainList}
           />
           )))}
+          {/* {isResultsFound === false && (<ResultsNotFound />) } */}
       </CardSlider>
 
       <CardSlider title="Recomendados">

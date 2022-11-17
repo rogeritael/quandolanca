@@ -16,6 +16,7 @@ interface IResults {
 
 export default function Search(){
     const { query } = useRouter();
+    const [isResultsFound, setIsResultsFound] = useState(true);
     const [searchResults, setSearchResults] = useState<IResults[]>([]);
 
     useEffect(() => {
@@ -25,15 +26,19 @@ export default function Search(){
             method: 'get',
             url: `/releases/search/${term}`
         })
-        .then(response => setSearchResults(response.data))
-        .catch(err => err);
+        .then(response => {
+            setSearchResults(response.data);
+            if(response.data.length < 1)
+                setIsResultsFound(false)
+        })
+        .catch(err => setIsResultsFound(false));
     }, [query.id])
 
     return(
         <>
             <Header />
             <Container>
-                { searchResults.length > 0 ? ( <>
+                { searchResults.length > 0 && ( <>
                     <h1>Resultados da pesquisa: </h1>
                     <GamesContainer>
                         {searchResults.map(item => (
@@ -45,8 +50,9 @@ export default function Search(){
                             />
                         ))}
                     </GamesContainer>
-                </>):
-                (
+                </>)}
+
+                {isResultsFound === false && (
                     <ResultsNotFound />
                 )}
             </Container>
