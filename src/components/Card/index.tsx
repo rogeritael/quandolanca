@@ -6,18 +6,26 @@ import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/UserContext";
 import moment from 'moment';
 
+interface ListProps {
+    id: number,
+    name: string,
+    date: string
+  }
+
 interface CardProps {
     type?: number,
     title: string,
     date: string,
     id: number,
-    mainCard?: boolean
+    mainCard?: boolean,
+    setMainList?: any;
+    mainList?: ListProps[]
 }
 
-export function Card({ type, title, date, id, mainCard }: CardProps){
+export function Card({ type, title, date, id, mainCard, mainList, setMainList }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
-    const { isAuthenticated } = useContext(Context);
+    const { isAuthenticated, notifications, setNotifications } = useContext(Context);
 
     async function handleAddToMyList(id: number){
 
@@ -60,6 +68,7 @@ export function Card({ type, title, date, id, mainCard }: CardProps){
         })
         .then(response => {
             message = response.data.message;
+            setMainList(mainList?.filter(item => item.id !== id));
         })
         .catch(err => {
             message = err.response.data.message;
@@ -91,7 +100,50 @@ export function Card({ type, title, date, id, mainCard }: CardProps){
             }
         }
         
+        
     }, [])
+
+    // useEffect(() => {
+    //     //se for card do usuário envia notificação para a api
+    //     if(mainCard === true){
+    //         const newdate = new Date(); 
+    //         const current_date = Date.parse(newdate as any)
+    //         const release_date = Date.parse(date)
+    //         const days = parseInt(((release_date - current_date) / 86400000).toFixed(0));
+
+    //         if(days <= 30 && days > 0){
+    //             let notification = {
+    //                 type: 'comingsoon',
+    //                 days: days,
+    //                 id: id
+    //             }
+
+    //             api({
+    //                 method: 'post',
+    //                 url: 'usernotifications/create',
+    //                 data: notification
+    //             })
+    //             .then(response => {})
+    //             .catch(err => {});
+
+    //         } else if(days < 0 && days >= -30){
+    //             let notification = {
+    //                 type: 'released',
+    //                 days: days,
+    //                 releaseId: id
+    //             }
+
+    //             api({
+    //                 method: 'post',
+    //                 url: 'usernotifications/create',
+    //                 data: notification
+    //             })
+    //             .then(response => {})
+    //             .catch(err => {});
+    //         }
+            
+    //     }
+    // }, [mainCard, id, date])
 
     return(
         <Container isAuthenticated={isAuthenticated} type={type} mainCard={mainCard}>

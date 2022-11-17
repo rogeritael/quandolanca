@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
 interface LoginProps {
@@ -13,19 +13,35 @@ interface RegisterProps {
     confirmpassword: string
 }
 
+interface INotification {
+    type: string,
+    description: string,
+    id: number
+}
+
 interface MainContextData {
     isAuthenticated: boolean;
     register: ({ ...props }: RegisterProps) => void;
     login: ({ ...props }: LoginProps) => void;
     logout: () => void;
+    notifications: INotification[];
+    setNotifications: any
 }
+
+interface INotification {
+    type: string,
+    description: string,
+    id: number
+}
+
 
 export const Context = createContext({} as MainContextData);
 
 export function UserProvider({children}: {children: React.ReactNode}){
     const {register, login, logout, isAuthenticated} = useAuth();
+    const [ notifications, setNotifications ] = useState<INotification[]>([]);
 
     return (
-        <Context.Provider value={{register, login, logout, isAuthenticated}}>{children}</Context.Provider>
+        <Context.Provider value={{register, login, logout, isAuthenticated, notifications, setNotifications}}>{children}</Context.Provider>
     )
 }

@@ -3,6 +3,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { CardSlider } from "../components/CardSlider";
 import { useEffect, useState, useContext } from "react";
+import { useFlashMessage } from "../hooks/useFlashMessage";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
 
@@ -17,6 +18,7 @@ export default function Home() {
   const [ isResultsFound, SetIsResultsFound ] = useState(true);
   const [recommended, setRecommended] = useState<ListProps[]>([]);
   const { isAuthenticated } = useContext(Context);
+  const { setFlashMessage } = useFlashMessage();
 
   useEffect(() => {
       
@@ -54,13 +56,36 @@ export default function Home() {
       })
       .then(response => {
         setMainList(response.data);
-        response.data.length < 1 && SetIsResultsFound(false)
+        response.data.length < 1 && SetIsResultsFound(false);
       })
       .catch(err => {
           SetIsResultsFound(false)
       })
     
-  }, [mainList, isAuthenticated])
+  }, [isAuthenticated]);
+
+  async function handleRemoveRelease(id: number){
+    const token = localStorage.getItem('token') || '{}';
+    let message = 'Lançamento removido da sua lista'
+    let type = 'success'
+
+    await api({
+        method: 'delete',
+        url: `/userlist/remove/${id}`,
+        headers: {
+            authorization: JSON.parse(token)
+        }
+    })
+    .then(response => {
+        message = response.data.message;
+    })
+    .catch(err => {
+        message = err.response.data.message;
+        type = 'error';
+    });
+
+    setFlashMessage({message, type});
+}
 
   return (
     <>
@@ -73,6 +98,8 @@ export default function Home() {
             title={item.name}
             date={item.date}
             id={item.id}
+            mainList={mainList}
+            setMainList={setMainList}
           />
           )))}
       </CardSlider>

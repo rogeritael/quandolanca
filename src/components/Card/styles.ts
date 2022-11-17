@@ -1,10 +1,15 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface CardProps {
     type?: number,
     mainCard?: boolean,
     isAuthenticated: boolean
 }
+
+const deleteAnimation = keyframes`  
+  from { opacity: 1; width: 100%;}
+  to { opacity: 0; width: 0;}
+`;
 
 export const Container = styled.article<CardProps>`
     margin-bottom: 1rem;
@@ -23,6 +28,7 @@ export const Container = styled.article<CardProps>`
         font-weight: bold;
         border-radius: 3px 0 0 0;
         top: 0;
+        display: none;
     }
 
     figure.cover {
@@ -102,6 +108,11 @@ export const Container = styled.article<CardProps>`
         }
     }
 
+    .delete-animation {
+        animation: ${deleteAnimation} 300ms forwards;
+        background-color: red;
+    }
+
 
     ${props => props.type === 2 && `
         display: flex;
@@ -115,27 +126,6 @@ export const Container = styled.article<CardProps>`
             margin-right: 0.5rem;
             background-color: var(--gray-2);
             cursor: pointer;
-
-            // .over {
-            //     background-color: rgba(0, 0, 0, 0.2);
-            //     position: absolute;
-            //     width: 100%;
-            //     height: 100%;
-            //     align-items: center;
-            //     justify-content: center;
-
-            //     svg {
-            //         color: #fff;
-            //         font-size: 3rem;
-            //         filter: opacity(0.2);
-            //     }
-            // }
-
-            // &:hover {
-            //     .over {
-            //         display: flex;
-            //     }
-            // }
         }
 
         .release-info {

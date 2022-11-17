@@ -1,30 +1,8 @@
 import { Container } from "./styles";
 import { AiOutlineClose } from 'react-icons/ai';
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState, useContext } from "react";
 import Image from "next/legacy/image";
-
-const notifications = [
-    {
-        id: 1,
-        type: "Atenção",
-        description: "Um usuário relatou que a capa registrada em Silent Hill 2 Remake não condiz com o lançamento em questão. Por favor, verifique se as informações estão corretas."
-    },
-    {
-        id: 2,
-        type: "Lançou",
-        description: "Tomb Raider: Trilogy Remaster acaba de ser lançado"
-    },
-    {
-        id: 3,
-        type: "Em breve",
-        description: "CoD: New Days está programado para lançar daqui à 7 dias."
-    },
-    {
-        id: 4,
-        type: "Mudanças",
-        description: "Need For Speed: Outlaw teve sua data de lançamento alterada para o dia 15/04/2023"
-    },
-];
+import { Context } from "../../context/UserContext";
 
 interface NotificationsModal {
     isVisible: boolean,
@@ -33,6 +11,7 @@ interface NotificationsModal {
 
 export function NotificationsModal({ isVisible, setVisible }: NotificationsModal){
     const [notificationsExists, setNotificationsExists]= useState(true);
+    const { notifications } = useContext(Context)
 
     useEffect(() => {
         document.body.style.overflowY = isVisible ? "hidden" : "auto";

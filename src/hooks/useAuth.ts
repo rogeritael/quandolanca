@@ -27,7 +27,7 @@ export function useAuth(){
             api.defaults.headers.authorization = JSON.parse(token);
             setIsAuthenticated(true);
         }
-    }, [])
+    }, []);
 
     async function register({name, email, password, confirmpassword}: RegisterProps){
         let message = "Cadastro realizado com sucesso"

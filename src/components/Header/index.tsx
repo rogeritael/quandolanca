@@ -8,6 +8,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Container } from "./styles";
 import { AppModal } from "../Modal";
 import { MobileMenu } from "../MobileMenu";
+import { useRouter } from 'next/router';
 import { NotificationsModal } from "../NotificationsModal";
 import { FlashMessageCard } from "../FlashMessageCard";
 import { api } from "../../utils/api";
@@ -44,10 +45,12 @@ export function Header(){
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
     const [activeLink, setActiveLink] = useState(0);
     const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
+    const [term, setTerm] = useState('');
+    const router = useRouter();
 
     const [username, setUsername] = useState('')
     const [userList, setUserList] = useState([]);
-    const { isAuthenticated, logout } = useContext(Context);
+    const { isAuthenticated, logout, setNotifications } = useContext(Context);
     
     //teste
     const [array, setArray] = useState([]);
@@ -71,13 +74,17 @@ export function Header(){
             })
             .then(response => {
                 setUsername(response.data.user.name);
-                setUserList(response.data.user.userlists)
+                setUserList(response.data.user.userlists);
+                setNotifications(response.data.user.usernotifications);
             })
             .catch(err => alert(err.data))
         }
 
         const url = window.location.href.replace('http://localhost:3000/', '')
         switch(url){
+            case '':
+                setActiveLink(0);
+                break;
             case 'games':
                 setActiveLink(1);
                 break;
@@ -87,10 +94,54 @@ export function Header(){
             case 'recem-lancados':
                 setActiveLink(3);
                 break;
+            default:
+                setActiveLink(4);
         }
         // alert(document.URL.split);
-    },[]);
-    
+
+
+        
+    },[setNotifications, isAuthenticated]);
+
+    useEffect(()=> {
+        const newdate = new Date(); 
+        const current_date = Date.parse(newdate as any)
+
+        //lista do usuario
+        userList.map(async (item: any) => {
+            const release_date = Date.parse(item.date)
+            const days = parseInt(((release_date - current_date) / 86400000).toFixed(0));
+            if(days >= 5 && days < 0){
+                const notification = {
+                    type: "comingsoon",
+                    days: days,
+                    id: item.id
+                }
+
+                await api({
+                    method: 'post',
+                    url: 'usernotifications/create',
+                    data: notification
+                });
+
+            } else if(days <= 0 && days >= -5){
+                api({
+                    method: 'post',
+                    url: 'usernotifications/create',
+                    data: {
+                        type: "released" ,
+                        days: days,
+                        releaseId: item.id
+                    }
+                });
+            }
+        })
+    },  [userList]);
+
+    function handleSearchRelease(e: React.FormEvent){
+        e.preventDefault();
+        router.push(`/search/${term}`);
+    }
 
     function handleOpenNotificationModal(){
         SetIsNotificationModalOpen(true);
@@ -111,8 +162,8 @@ export function Header(){
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
         <Container>
             <div className="header-top">
-                <form>
-                    <input type="text" placeholder="Procurar Lançamentos" />
+                <form onSubmit={(e) => handleSearchRelease(e)}>
+                    <input type="text" placeholder="Procurar Lançamentos" value={term} onChange={(e) => setTerm(e.target.value)} />
                     <button type="submit">
                         <FiSearch />
                     </button>
