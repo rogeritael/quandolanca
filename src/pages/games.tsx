@@ -15,7 +15,7 @@ interface IGamesList {
 }
 
 export default function GamesPage(){
-    const [ isResultsFound, SetIsResultsFound ] = useState(true);
+    const [ isResultsFound, setIsResultsFound ] = useState(true);
     const [gamesList, setGamesList] = useState<IGamesList[]>([]);
 
     useEffect(() => {
@@ -25,10 +25,10 @@ export default function GamesPage(){
         })
         .then(response => {
             setGamesList(response.data)
-            response.data.length < 1 && SetIsResultsFound(false)
+            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
         })
         .catch(err => {
-            SetIsResultsFound(false);
+            setIsResultsFound(false);
         });
 
     },[]);
@@ -47,6 +47,7 @@ export default function GamesPage(){
                                     key={item.id}
                                     title={item.name}
                                     date={item.date}
+                                    image={item.image}
                                 />
                             ))}
                         </GamesContainer>

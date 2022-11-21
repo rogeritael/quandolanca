@@ -6,20 +6,19 @@ import { useEffect, useState, useContext } from "react";
 import { useFlashMessage } from "../hooks/useFlashMessage";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
-import { ResultsNotFound } from "../components/ResultsNotFound";
 
 interface ListProps {
   id: number,
   name: string,
-  date: string
+  image: string
+  date: string,
 }
 
 export default function Home() {
-  const [mainList, setMainList] = useState<ListProps[]>([]);
+  // const [mainList, setMainList] = useState<ListProps[]>([]);
   const [ isResultsFound, SetIsResultsFound ] = useState(true);
   const [recommended, setRecommended] = useState<ListProps[]>([]);
-  const { isAuthenticated } = useContext(Context);
-  const { setFlashMessage } = useFlashMessage();
+  const { isAuthenticated, mainList, setMainList } = useContext(Context);
 
   useEffect(() => {
       
@@ -63,7 +62,7 @@ export default function Home() {
           SetIsResultsFound(false)
       })
     
-  }, [isAuthenticated]);
+  }, [isAuthenticated, setMainList]);
 
 //   async function handleRemoveRelease(id: number){
 //     const token = localStorage.getItem('token') || '{}';
@@ -101,6 +100,7 @@ export default function Home() {
             id={item.id}
             mainList={mainList}
             setMainList={setMainList}
+            image={item.image}
           />
           )))}
           {/* {isResultsFound === false && (<ResultsNotFound />) } */}
@@ -114,6 +114,7 @@ export default function Home() {
             title={release.name}
             date={release.date}
             id={release.id}
+            image={release.image}
           />
           ))}
       </CardSlider>

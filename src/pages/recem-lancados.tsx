@@ -15,7 +15,7 @@ interface RecentListProps {
 }
 
 export default function RecemLancados(){
-    const [ isResultsFound, SetIsResultsFound ] = useState(true);
+    const [ isResultsFound, setIsResultsFound ] = useState(true);
     const [recentList, setRecentList] = useState<RecentListProps[]>([]);
 
     useEffect(() => {
@@ -25,10 +25,10 @@ export default function RecemLancados(){
         })
         .then(response => {
             setRecentList(response.data);
-            response.data.length < 1 && SetIsResultsFound(false)
+            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
         })
         .catch(err => {
-            SetIsResultsFound(false)
+            setIsResultsFound(false)
         })
     },[]);
 
@@ -47,6 +47,7 @@ export default function RecemLancados(){
                                     title={item.name}
                                     date={item.date}
                                     mainCard={true}
+                                    image={item.image}
                                 />
                             ))}
                         </GamesContainer>

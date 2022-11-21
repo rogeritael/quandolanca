@@ -4,7 +4,7 @@ import { useFlashMessage } from "../../hooks/useFlashMessage";
 import { api } from "../../utils/api";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/UserContext";
-import moment from 'moment';
+import Image from "next/image";
 
 interface ListProps {
     id: number,
@@ -19,13 +19,14 @@ interface CardProps {
     id: number,
     mainCard?: boolean,
     setMainList?: any;
-    mainList?: ListProps[]
+    mainList?: ListProps[],
+    image: string
 }
 
-export function Card({ type, title, date, id, mainCard, mainList, setMainList }: CardProps){
+export function Card({ type, image, title, date, id, mainCard }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
-    const { isAuthenticated, notifications, setNotifications } = useContext(Context);
+    const { isAuthenticated, notifications, setNotifications, mainList, setMainList } = useContext(Context);
 
     async function handleAddToMyList(id: number){
 
@@ -44,6 +45,7 @@ export function Card({ type, title, date, id, mainCard, mainList, setMainList }:
             })
             .then(response => {
                 message = response.data.message;
+                setMainList(response.data.updatedList);
             })
             .catch(err => {
                 message = err.response.data.message;
@@ -144,13 +146,19 @@ export function Card({ type, title, date, id, mainCard, mainList, setMainList }:
             
     //     }
     // }, [mainCard, id, date])
-
+    
     return(
         <Container isAuthenticated={isAuthenticated} type={type} mainCard={mainCard}>
+            
             <figure className="cover" onClick={() => handleAddToMyList(id)}>
                 <span className="over">
                     <AiOutlinePlusCircle />
                 </span>
+                <Image 
+                    alt=""
+                    fill
+                    src={`data:image/jpeg;base64,${image}`}
+                />
             </figure>
             <span className="released-marker">LANÇADO</span>
             <div className="release-info">

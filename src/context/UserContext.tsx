@@ -25,7 +25,9 @@ interface MainContextData {
     login: ({ ...props }: LoginProps) => void;
     logout: () => void;
     notifications: INotification[];
-    setNotifications: any
+    setNotifications: any,
+    setMainList: any,
+    mainList: ListProps[]
 }
 
 interface INotification {
@@ -34,14 +36,20 @@ interface INotification {
     id: number
 }
 
+interface ListProps {
+    id: number,
+    name: string,
+    date: string
+  }
 
 export const Context = createContext({} as MainContextData);
 
 export function UserProvider({children}: {children: React.ReactNode}){
     const {register, login, logout, isAuthenticated} = useAuth();
+    const [mainList, setMainList] = useState<ListProps[]>([]);
     const [ notifications, setNotifications ] = useState<INotification[]>([]);
 
     return (
-        <Context.Provider value={{register, login, logout, isAuthenticated, notifications, setNotifications}}>{children}</Context.Provider>
+        <Context.Provider value={{register, login, logout, isAuthenticated, notifications, setNotifications, mainList, setMainList}}>{children}</Context.Provider>
     )
 }

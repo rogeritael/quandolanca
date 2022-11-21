@@ -15,7 +15,7 @@ interface ListProps {
 
 export default function Series(){
     const [seriesList, setSeriesList] = useState<ListProps[]>([]);
-    const [ isResultsFound, SetIsResultsFound ] = useState(true);
+    const [ isResultsFound, setIsResultsFound ] = useState(true);
 
     useEffect(() => {
         api({
@@ -24,10 +24,10 @@ export default function Series(){
         })
         .then(response => {
             setSeriesList(response.data);
-            response.data.length < 1 && SetIsResultsFound(false);
+            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
         })
         .catch(err => {
-            SetIsResultsFound(false)
+            setIsResultsFound(false)
         })
     },[]);
 
@@ -45,6 +45,7 @@ export default function Series(){
                                     id={item.id}
                                     title={item.name}
                                     date={item.date}
+                                    image={item.image}
                                 />
                             ))}
                         </GamesContainer>

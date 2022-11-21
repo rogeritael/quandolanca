@@ -10,7 +10,7 @@ interface NotificationsModal {
 }
 
 export function NotificationsModal({ isVisible, setVisible }: NotificationsModal){
-    const [notificationsExists, setNotificationsExists]= useState(true);
+    const [notificationsExists, setNotificationsExists]= useState(false);
     const { notifications } = useContext(Context)
 
     useEffect(() => {

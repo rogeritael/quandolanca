@@ -11,7 +11,8 @@ import { ResultsNotFound } from "../../components/ResultsNotFound";
 interface IResults {
     id: number,
     name: string,
-    date: string
+    date: string,
+    image: string
 }
 
 export default function Search(){
@@ -28,8 +29,7 @@ export default function Search(){
         })
         .then(response => {
             setSearchResults(response.data);
-            if(response.data.length < 1)
-                setIsResultsFound(false)
+            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true)
         })
         .catch(err => setIsResultsFound(false));
     }, [query.id])
@@ -47,6 +47,7 @@ export default function Search(){
                                 id={item.id}
                                 title={item.name}
                                 date={item.date}
+                                image={item.image}
                             />
                         ))}
                     </GamesContainer>

@@ -41,6 +41,10 @@ export const Container = styled.article<CardProps>`
 
         background-color: var(--gray-2);
 
+        img {
+            pointer-events: none;
+        }
+
         .over {
             background-color: rgba(0, 0, 0, 0.2);
             position: absolute;
