@@ -10,30 +10,29 @@ import { api } from "../utils/api"
 interface ListProps {
     id: number,
     name: string,
-    date: string
+    date: string,
+    image: string
 }
 
 export default function Series(){
     const [seriesList, setSeriesList] = useState<ListProps[]>([]);
     const [ isResultsFound, setIsResultsFound ] = useState(true);
 
-    useEffect(() => {
-        api({
-            method: 'get',
-            url: '/releases/getcategory/series'
-        })
-        .then(response => {
-            setSeriesList(response.data);
-            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
-        })
-        .catch(err => {
-            setIsResultsFound(false)
-        })
-    },[]);
+    // useEffect(() => {
+    //     api({
+    //         method: 'get',
+    //         url: '/releases/getcategory/series'
+    //     })
+    //     .then(response => {
+    //         setSeriesList(response.data);
+    //         response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
+    //     })
+    //     .catch(err => {
+    //         setIsResultsFound(false)
+    //     })
+    // },[]);
 
     return(
-        <>
-            <Header/>
             <Container>
                 {seriesList.length > 0 && (
                     <>
@@ -55,7 +54,5 @@ export default function Series(){
                 {isResultsFound === false && <ResultsNotFound />}
                     
             </Container>
-            <Footer />
-        </>
     )
 }

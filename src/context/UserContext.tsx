@@ -39,7 +39,8 @@ interface INotification {
 interface ListProps {
     id: number,
     name: string,
-    date: string
+    date: string,
+    image: string
   }
 
 export const Context = createContext({} as MainContextData);

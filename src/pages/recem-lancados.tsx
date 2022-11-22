@@ -11,7 +11,8 @@ import { api } from "../utils/api"
 interface RecentListProps {
     id: number,
     name: string,
-    date: string
+    date: string,
+    image: string
 }
 
 export default function RecemLancados(){
@@ -33,8 +34,6 @@ export default function RecemLancados(){
     },[]);
 
     return(
-        <>
-            <Header/>
             <Container>
                 {recentList.length > 0 && (
                     <>
@@ -57,7 +56,5 @@ export default function RecemLancados(){
                 {isResultsFound === false && (<ResultsNotFound />) }
                 
             </Container>
-            <Footer />
-        </>
     )
 }

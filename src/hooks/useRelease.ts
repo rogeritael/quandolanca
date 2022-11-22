@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export function useAuth(){
+export function useRelease(){
     const [isMainListResultsFound, setIsMainListResultsFound] = useState(true);
-    const [mainList, setMainList] = useState([]);
+    const [mainList, setMainList] = useState([])
 
     async function addReleaseToMyList(){
 

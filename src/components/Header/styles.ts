@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
-export const Container = styled.header`
+interface IHeader {
+    showHeader: boolean;
+}
+
+export const Container = styled.header<IHeader>`
+    ${props => props.showHeader === false && `
+        display: none;
+    `}
+
     .toggle {
         display: none;
     }

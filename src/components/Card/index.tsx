@@ -20,7 +20,7 @@ interface CardProps {
     mainCard?: boolean,
     setMainList?: any;
     mainList?: ListProps[],
-    image: string
+    image?: string
 }
 
 export function Card({ type, image, title, date, id, mainCard }: CardProps){

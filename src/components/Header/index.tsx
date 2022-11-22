@@ -43,6 +43,7 @@ export function Header(){
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
+    const [showHeader, setShowHeader] = useState(true);
     const [activeLink, setActiveLink] = useState(0);
     const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
     const [term, setTerm] = useState('');
@@ -80,27 +81,20 @@ export function Header(){
             .catch(err => alert(err.data))
         }
 
-        const url = window.location.href.replace('http://localhost:3000/', '')
-        switch(url){
-            case '':
-                setActiveLink(0);
-                break;
-            case 'games':
-                setActiveLink(1);
-                break;
-            case 'series':
-                setActiveLink(2);
-                break;
-            case 'recem-lancados':
-                setActiveLink(3);
-                break;
-            default:
-                setActiveLink(4);
-        }
-        // alert(document.URL.split);
-
-
         
+
+
+        // switch(url){
+        //     case 'login':
+        //         setShowHeader(false);
+        //         break;
+        //     case 'register':
+        //         setShowHeader(false);
+        //         break;
+        //     default:
+        //         // setActiveLink(5);
+        //         setShowHeader(true);
+        // }
     },[setNotifications, isAuthenticated]);
 
     useEffect(()=> {
@@ -160,7 +154,7 @@ export function Header(){
             
         <NotificationsModal isVisible={isNotificationsVisible} setVisible={setIsNotificationsVisible} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
-        <Container>
+        <Container showHeader={showHeader}>
             <div className="header-top">
                 <form onSubmit={(e) => handleSearchRelease(e)}>
                     <input type="text" placeholder="Procurar Lançamentos" value={term} onChange={(e) => setTerm(e.target.value)} />

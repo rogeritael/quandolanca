@@ -26,7 +26,8 @@ export function useAuth(){
         if(token){
             api.defaults.headers.authorization = JSON.parse(token);
             setIsAuthenticated(true);
-        }
+        }else
+            setIsAuthenticated(false);
     }, []);
 
     async function register({name, email, password, confirmpassword}: RegisterProps){

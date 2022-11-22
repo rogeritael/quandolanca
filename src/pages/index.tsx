@@ -1,9 +1,6 @@
 import { Card } from "../components/Card";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { CardSlider } from "../components/CardSlider";
 import { useEffect, useState, useContext } from "react";
-import { useFlashMessage } from "../hooks/useFlashMessage";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
 
@@ -15,13 +12,11 @@ interface ListProps {
 }
 
 export default function Home() {
-  // const [mainList, setMainList] = useState<ListProps[]>([]);
   const [ isResultsFound, SetIsResultsFound ] = useState(true);
   const [recommended, setRecommended] = useState<ListProps[]>([]);
   const { isAuthenticated, mainList, setMainList } = useContext(Context);
 
   useEffect(() => {
-      
     api({
         method: 'get',
         url: '/releases/nextreleases'
@@ -29,10 +24,6 @@ export default function Home() {
     .then(response => {
       setRecommended(response.data)
     });
-
-  },[])
-
-  useEffect(() => {
 
     isAuthenticated ?
       api({
@@ -64,32 +55,8 @@ export default function Home() {
     
   }, [isAuthenticated, setMainList]);
 
-//   async function handleRemoveRelease(id: number){
-//     const token = localStorage.getItem('token') || '{}';
-//     let message = 'Lançamento removido da sua lista'
-//     let type = 'success'
-
-//     await api({
-//         method: 'delete',
-//         url: `/userlist/remove/${id}`,
-//         headers: {
-//             authorization: JSON.parse(token)
-//         }
-//     })
-//     .then(response => {
-//         message = response.data.message;
-//     })
-//     .catch(err => {
-//         message = err.response.data.message;
-//         type = 'error';
-//     });
-
-//     setFlashMessage({message, type});
-// }
-
   return (
     <>
-      <Header />
       <CardSlider isResultsFound={isResultsFound} columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
         {mainList.length > 0 && ( mainList.map(item => (
           <Card
@@ -103,7 +70,6 @@ export default function Home() {
             image={item.image}
           />
           )))}
-          {/* {isResultsFound === false && (<ResultsNotFound />) } */}
       </CardSlider>
 
       <CardSlider title="Recomendados">
@@ -118,7 +84,6 @@ export default function Home() {
           />
           ))}
       </CardSlider>
-      <Footer />
     </>
   )
 }

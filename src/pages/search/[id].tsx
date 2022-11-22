@@ -35,8 +35,6 @@ export default function Search(){
     }, [query.id])
 
     return(
-        <>
-            <Header />
             <Container>
                 { searchResults.length > 0 && ( <>
                     <h1>Resultados da pesquisa: </h1>
@@ -57,7 +55,5 @@ export default function Search(){
                     <ResultsNotFound />
                 )}
             </Container>
-            <Footer />
-        </>
     )
 }

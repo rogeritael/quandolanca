@@ -11,7 +11,8 @@ import moment from 'moment';
 interface IGamesList {
     id: number,
     name: string,
-    date: string
+    date: string,
+    image: string
 }
 
 export default function GamesPage(){
@@ -34,8 +35,6 @@ export default function GamesPage(){
     },[]);
 
     return(
-        <>
-            <Header/>
             <Container>
                 {gamesList.length > 0 && (
                     <>
@@ -58,7 +57,5 @@ export default function GamesPage(){
                 {isResultsFound === false && (<ResultsNotFound />) }
                 
             </Container>
-            <Footer />
-        </>
     )
 }
