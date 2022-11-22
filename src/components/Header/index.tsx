@@ -77,8 +77,7 @@ export function Header(){
                 setUsername(response.data.user.name);
                 setUserList(response.data.user.userlists);
                 setNotifications(response.data.user.usernotifications);
-            })
-            .catch(err => alert(err.data))
+            });
         }
 
         

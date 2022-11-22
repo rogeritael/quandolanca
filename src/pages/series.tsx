@@ -18,19 +18,19 @@ export default function Series(){
     const [seriesList, setSeriesList] = useState<ListProps[]>([]);
     const [ isResultsFound, setIsResultsFound ] = useState(true);
 
-    // useEffect(() => {
-    //     api({
-    //         method: 'get',
-    //         url: '/releases/getcategory/series'
-    //     })
-    //     .then(response => {
-    //         setSeriesList(response.data);
-    //         response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
-    //     })
-    //     .catch(err => {
-    //         setIsResultsFound(false)
-    //     })
-    // },[]);
+    useEffect(() => {
+        api({
+            method: 'get',
+            url: '/releases/getcategory/series'
+        })
+        .then(response => {
+            setSeriesList(response.data);
+            response.data.length < 1 ? setIsResultsFound(false) : setIsResultsFound(true);
+        })
+        .catch(err => {
+            setIsResultsFound(false)
+        })
+    },[]);
 
     return(
             <Container>
