@@ -1,19 +1,32 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 interface CardProps {
     type?: number,
     mainCard?: boolean,
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
+    deleteAnimation: any
 }
 
 const deleteAnimation = keyframes`  
-  from { opacity: 1; width: 100%;}
-  to { opacity: 0; width: 0;}
+  from { opacity: 1;}
+  to { opacity: 0;}
+`;
+
+const entranceAnimation = keyframes`  
+  from { opacity: 0;  transform: translateX(-50px);}
+  to { opacity: 1; transform: translateX(0);}
 `;
 
 export const Container = styled.article<CardProps>`
     margin-bottom: 1rem;
     position: relative;
+    transition: 500ms;
+    animation: ${entranceAnimation} 800ms forwards;
+
+    ${props => props.deleteAnimation === true && `
+        filter: opacity(0);
+        width: 0;
+    `}
 
     .over {
         display: none;
@@ -141,4 +154,5 @@ export const Container = styled.article<CardProps>`
             row-gap: 10px;
         }
     `}
+    
 `;

@@ -26,6 +26,7 @@ interface CardProps {
 export function Card({ type, image, title, date, id, mainCard }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
+    const [deleteAnimation, setDeleteAnimation] = useState(false);
     const { isAuthenticated, notifications, setNotifications, mainList, setMainList } = useContext(Context);
 
     async function handleAddToMyList(id: number){
@@ -45,7 +46,7 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             })
             .then(response => {
                 message = response.data.message;
-                setMainList(response.data.updatedList);
+                setMainList(response.data.updatedList);    
             })
             .catch(err => {
                 message = err.response.data.message;
@@ -70,7 +71,11 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
         })
         .then(response => {
             message = response.data.message;
-            setMainList(mainList?.filter(item => item.id !== id));
+            setDeleteAnimation(true);
+            setTimeout(() => {
+                setMainList(mainList?.filter(item => item.id !== id));
+            }, 500)
+            
         })
         .catch(err => {
             message = err.response.data.message;
@@ -95,60 +100,18 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             
         }else {
             const daysToGo = ((release_date - current_date) / 86400000).toFixed(0);
-            setDaysToGo(`faltam ${daysToGo} DIAS`);
-
-            if(parseInt(daysToGo) < 0 ){
-                setDaysToGo(`lançado a ${daysToGo.replace('-', '')} DIAS`)
+            if(parseInt(daysToGo) > 0 ){
+                setDaysToGo(`faltam ${daysToGo} DIAS`);
+            } else if(parseInt(daysToGo) === -0){
+                setDaysToGo("lança hoje");
+            }else if(parseInt(daysToGo) < 0 ){
+                setDaysToGo(`lançado há ${daysToGo.replace('-', '')} DIAS`);
             }
-        }
-        
-        
-    }, [])
-
-    // useEffect(() => {
-    //     //se for card do usuário envia notificação para a api
-    //     if(mainCard === true){
-    //         const newdate = new Date(); 
-    //         const current_date = Date.parse(newdate as any)
-    //         const release_date = Date.parse(date)
-    //         const days = parseInt(((release_date - current_date) / 86400000).toFixed(0));
-
-    //         if(days <= 30 && days > 0){
-    //             let notification = {
-    //                 type: 'comingsoon',
-    //                 days: days,
-    //                 id: id
-    //             }
-
-    //             api({
-    //                 method: 'post',
-    //                 url: 'usernotifications/create',
-    //                 data: notification
-    //             })
-    //             .then(response => {})
-    //             .catch(err => {});
-
-    //         } else if(days < 0 && days >= -30){
-    //             let notification = {
-    //                 type: 'released',
-    //                 days: days,
-    //                 releaseId: id
-    //             }
-
-    //             api({
-    //                 method: 'post',
-    //                 url: 'usernotifications/create',
-    //                 data: notification
-    //             })
-    //             .then(response => {})
-    //             .catch(err => {});
-    //         }
-            
-    //     }
-    // }, [mainCard, id, date])
+        }     
+    }, []);
     
     return(
-        <Container isAuthenticated={isAuthenticated} type={type} mainCard={mainCard}>
+        <Container isAuthenticated={isAuthenticated} type={type} mainCard={mainCard} deleteAnimation={deleteAnimation}>
             
             <figure className="cover" onClick={() => handleAddToMyList(id)}>
                 <span className="over">

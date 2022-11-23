@@ -10,15 +10,20 @@ interface NotificationsModal {
 }
 
 export function NotificationsModal({ isVisible, setVisible }: NotificationsModal){
-    const [notificationsExists, setNotificationsExists]= useState(false);
-    const { notifications } = useContext(Context)
+    const [notificationsExists, setNotificationsExists]= useState(true);
+    const { notifications } = useContext(Context);
+
+    function formatDate(date: string){
+        const completeDate = date.split('-');
+
+        return `${completeDate[2].split('T')[0]}/${completeDate[1]}/${completeDate[0]}`
+    }
 
     useEffect(() => {
         document.body.style.overflowY = isVisible ? "hidden" : "auto";
     }, [isVisible]);
 
     return(
-        // <Container isVisible={isVisible} >
         <Container isVisible={isVisible} >
             <span className="background" onClick={() => setVisible(false)}></span>
 
@@ -31,7 +36,7 @@ export function NotificationsModal({ isVisible, setVisible }: NotificationsModal
                 (<>
                     {notifications.map(notification => (
                         <div key={notification.id} className="notification-item">
-                            <p className="date">hoje</p>
+                            <p className="date">{formatDate(notification.createdAt)}</p>
                             <p><span>{notification.type}: </span>{notification.description}</p>
                         </div>
                     ))}

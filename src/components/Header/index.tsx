@@ -35,10 +35,6 @@ const pages = [{
     id: 3
 }];
 
-interface HeaderProps {
-    active?: number
-}
-
 export function Header(){
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -79,57 +75,7 @@ export function Header(){
                 setNotifications(response.data.user.usernotifications);
             });
         }
-
-        
-
-
-        // switch(url){
-        //     case 'login':
-        //         setShowHeader(false);
-        //         break;
-        //     case 'register':
-        //         setShowHeader(false);
-        //         break;
-        //     default:
-        //         // setActiveLink(5);
-        //         setShowHeader(true);
-        // }
     },[setNotifications, isAuthenticated]);
-
-    useEffect(()=> {
-        const newdate = new Date(); 
-        const current_date = Date.parse(newdate as any)
-
-        //lista do usuario
-        userList.map(async (item: any) => {
-            const release_date = Date.parse(item.date)
-            const days = parseInt(((release_date - current_date) / 86400000).toFixed(0));
-            if(days >= 5 && days < 0){
-                const notification = {
-                    type: "comingsoon",
-                    days: days,
-                    id: item.id
-                }
-
-                await api({
-                    method: 'post',
-                    url: 'usernotifications/create',
-                    data: notification
-                });
-
-            } else if(days <= 0 && days >= -5){
-                api({
-                    method: 'post',
-                    url: 'usernotifications/create',
-                    data: {
-                        type: "released" ,
-                        days: days,
-                        releaseId: item.id
-                    }
-                });
-            }
-        })
-    },  [userList]);
 
     function handleSearchRelease(e: React.FormEvent){
         e.preventDefault();

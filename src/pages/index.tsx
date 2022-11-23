@@ -14,7 +14,7 @@ interface ListProps {
 export default function Home() {
   const [ isResultsFound, SetIsResultsFound ] = useState(true);
   const [recommended, setRecommended] = useState<ListProps[]>([]);
-  const { isAuthenticated, mainList, setMainList } = useContext(Context);
+  const { isAuthenticated, mainList, setMainList, generateNotifications } = useContext(Context);
 
   useEffect(() => {
     api({
@@ -36,6 +36,10 @@ export default function Home() {
       .then(response => {
         setMainList(response.data.user.userlists);
         response.data.user.userlists.length < 1 && SetIsResultsFound(false);
+
+        response.data.user.userlists.map((item: any) => {
+          generateNotifications(item.date, item.name);
+        });
       })
       .catch(err => {
         SetIsResultsFound(false)
