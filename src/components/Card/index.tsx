@@ -26,6 +26,7 @@ interface CardProps {
 export function Card({ type, image, title, date, id, mainCard }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
+    const [isReleased, setIsReleased] = useState(false);
     const [deleteAnimation, setDeleteAnimation] = useState(false);
     const { isAuthenticated, notifications, setNotifications, mainList, setMainList } = useContext(Context);
 
@@ -105,6 +106,7 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             } else if(parseInt(daysToGo) === -0){
                 setDaysToGo("lança hoje");
             }else if(parseInt(daysToGo) < 0 ){
+                setIsReleased(true);
                 setDaysToGo(`lançado há ${daysToGo.replace('-', '')} DIAS`);
             }
         }     
@@ -115,7 +117,9 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             
             <figure className="cover" onClick={() => handleAddToMyList(id)}>
                 <span className="over">
-                    <AiOutlinePlusCircle />
+                    <p>ADICIONAR</p>
+                    
+                    {/* <AiOutlinePlusCircle /> */}
                 </span>
                 <Image 
                     alt=""
@@ -123,7 +127,10 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
                     src={`data:image/jpeg;base64,${image}`}
                 />
             </figure>
-            <span className="released-marker">LANÇADO</span>
+            {isReleased && (
+                <span className="released-marker">LANÇADO</span>
+            )}
+            
             <div className="release-info">
                 {type === 2 ? (
                     <>

@@ -17,15 +17,19 @@ const entranceAnimation = keyframes`
   to { opacity: 1; transform: translateX(0);}
 `;
 
+const addAnimation = keyframes`  
+from { opacity: 0;  transform: translateY(30px)  scale(0.8);}
+to { opacity: 1; transform: translateY(0)  scale(1);}
+`;
+
 export const Container = styled.article<CardProps>`
     margin-bottom: 1rem;
     position: relative;
-    transition: 500ms;
+    transition: 500ms ease-in;
     animation: ${entranceAnimation} 800ms forwards;
 
     ${props => props.deleteAnimation === true && `
         filter: opacity(0);
-        width: 0;
     `}
 
     .over {
@@ -41,7 +45,6 @@ export const Container = styled.article<CardProps>`
         font-weight: bold;
         border-radius: 3px 0 0 0;
         top: 0;
-        display: none;
     }
 
     figure.cover {
@@ -59,24 +62,24 @@ export const Container = styled.article<CardProps>`
         }
 
         .over {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.7);
             position: absolute;
             width: 100%;
             height: 100%;
             align-items: center;
             justify-content: center;
+            z-index: 1;
 
-            svg {
+            p {
                 color: #fff;
-                font-size: 3rem;
-                filter: opacity(0.2);
+                font-size: 1.25rem;
+                animation: ${addAnimation} 500ms forwards;
             }
         }
 
         &:hover {
             .over {
                 display: ${props => props.mainCard || !props.isAuthenticated ? 'none' : 'flex'}
-                /* display: none; */
             }
         }
     }
