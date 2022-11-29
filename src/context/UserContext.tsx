@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNotifications } from "../hooks/useNotification";
 
@@ -30,13 +30,20 @@ interface MainContextData {
     setMainList: any;
     mainList: ListProps[];
     generateNotifications: (releaseDate: string, releaseName: string) => void;
+    getNotifications: () => void;
+    markNotificationsAsRead: () => void;
+    isThereUnreadNotification: boolean;
+    setIsThereUnreadNotification: React.Dispatch<boolean>;
 }
+
+// React.Dispatch<SetStateAction<boolean>>
 
 interface INotification {
     type: string,
     description: string,
     id: number,
-    createdAt: string
+    createdAt: string,
+    notificaionReadStatus: boolean
 }
 
 interface ListProps {
@@ -50,11 +57,34 @@ export const Context = createContext({} as MainContextData);
 
 export function UserProvider({children}: {children: React.ReactNode}){
     const {register, login, logout, isAuthenticated} = useAuth();
-    const { generateNotifications, notifications, setNotifications } = useNotifications();
+    const { generateNotifications, notifications, setNotifications, getNotifications, markNotificationsAsRead, isThereUnreadNotification, setIsThereUnreadNotification } = useNotifications();
     const [mainList, setMainList] = useState<ListProps[]>([]);
-    // const [ notifications, setNotifications ] = useState<INotification[]>([]);
+
+    useEffect(() => {
+        mainList.map((item: any) => {
+            generateNotifications(item.date, item.name);
+            getNotifications();
+        })
+
+    }, [mainList])
 
     return (
-        <Context.Provider value={{register, login, logout, isAuthenticated, notifications, setNotifications, mainList, setMainList, generateNotifications}}>{children}</Context.Provider>
+        <Context.Provider value={{
+            register, 
+            login, 
+            logout, 
+            setNotifications, 
+            setMainList, 
+            generateNotifications,
+            getNotifications,
+            isAuthenticated, 
+            notifications, 
+            mainList,
+            markNotificationsAsRead,
+            isThereUnreadNotification,
+            setIsThereUnreadNotification
+        }}>
+            {children}
+        </Context.Provider>
     )
 }

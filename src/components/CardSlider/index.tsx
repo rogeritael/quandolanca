@@ -7,7 +7,7 @@ interface MainListContainerProps {
     title: string,
     columns?: number,
     children?: React.ReactNode,
-    isResultsFound?: boolean
+    isResultsFound?: boolean | true
 }
 
 export function CardSlider({ title, columns, children, isResultsFound }: MainListContainerProps){
@@ -19,7 +19,6 @@ export function CardSlider({ title, columns, children, isResultsFound }: MainLis
         const offsetWidth = carousel.current?.offsetWidth || 0;
         setWidth(scrollWidth - offsetWidth);
     }, []);
-
 
     return(
         <Container columns={columns}>

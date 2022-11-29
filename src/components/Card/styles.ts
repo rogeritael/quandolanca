@@ -87,6 +87,7 @@ export const Container = styled.article<CardProps>`
     .release-info {
         position: relative;
         padding: 0.25rem 0;
+        width: 12rem;
         span {
             font-size: .6rem;
         }
@@ -126,11 +127,6 @@ export const Container = styled.article<CardProps>`
                 color: var(--gray-2);
             }
         }
-    }
-
-    .delete-animation {
-        animation: ${deleteAnimation} 300ms forwards;
-        background-color: red;
     }
 
 

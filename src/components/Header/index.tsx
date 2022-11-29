@@ -47,7 +47,7 @@ export function Header(){
 
     const [username, setUsername] = useState('')
     const [userList, setUserList] = useState([]);
-    const { isAuthenticated, logout, setNotifications } = useContext(Context);
+    const { isAuthenticated, logout, setNotifications, isThereUnreadNotification, setIsThereUnreadNotification } = useContext(Context);
     
     //teste
     const [array, setArray] = useState([]);
@@ -73,8 +73,15 @@ export function Header(){
                 setUsername(response.data.user.name);
                 setUserList(response.data.user.userlists);
                 setNotifications(response.data.user.usernotifications);
+
+                {response.data.user.usernotifications.map((item: any) => {
+                    if(item.notificaionReadStatus === false || item.notificaionReadStatus === 0){
+                        setIsThereUnreadNotification(true);
+                    }
+                })}
             });
         }
+
     },[setNotifications, isAuthenticated]);
 
     function handleSearchRelease(e: React.FormEvent){
@@ -82,12 +89,12 @@ export function Header(){
         router.push(`/search/${term}`);
     }
 
-    function handleOpenNotificationModal(){
-        SetIsNotificationModalOpen(true);
-    }
-    function handleOpenReleaseModal(){
-        SetIsNewReleaseModalOpen(true);
-    }
+    // function handleOpenNotificationModal(){
+    //     SetIsNotificationModalOpen(true);
+    // }
+    // function handleOpenReleaseModal(){
+    //     SetIsNewReleaseModalOpen(true);
+    // }
 
     function handleCloseModal(){
         SetIsNotificationModalOpen(false);
@@ -99,7 +106,7 @@ export function Header(){
             
         <NotificationsModal isVisible={isNotificationsVisible} setVisible={setIsNotificationsVisible} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen}/>
-        <Container showHeader={showHeader}>
+        <Container showHeader={showHeader} isThereUnreadNotification={isThereUnreadNotification}>
             <div className="header-top">
                 <form onSubmit={(e) => handleSearchRelease(e)}>
                     <input type="text" placeholder="Procurar Lançamentos" value={term} onChange={(e) => setTerm(e.target.value)} />
@@ -109,8 +116,10 @@ export function Header(){
                 </form>
                 { isAuthenticated ? (
                     <div className="user-info">
-                        <BsFillBellFill onClick={() => setIsNotificationsVisible(true)}/>
-
+                        <div className={`bell ${isThereUnreadNotification === true ? 'isThereUnreadNotification' : ''}`}>
+                            <BsFillBellFill onClick={() => setIsNotificationsVisible(true)}/>
+                            <span className="alert-circle"></span>
+                        </div>
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
                         <p>{username}<span className="logout-link" onClick={() => logout()}>sair</span> </p>

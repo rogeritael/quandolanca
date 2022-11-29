@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import { AiOutlinePlusCircle, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useFlashMessage } from "../../hooks/useFlashMessage";
 import { api } from "../../utils/api";
 import { useContext, useEffect, useState } from "react";
@@ -20,15 +20,16 @@ interface CardProps {
     mainCard?: boolean,
     setMainList?: any;
     mainList?: ListProps[],
-    image?: string
+    image?: string,
+    setResults?: any
 }
 
-export function Card({ type, image, title, date, id, mainCard }: CardProps){
+export function Card({ type, image, title, date, id, mainCard, setResults }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
     const [isReleased, setIsReleased] = useState(false);
     const [deleteAnimation, setDeleteAnimation] = useState(false);
-    const { isAuthenticated, notifications, setNotifications, mainList, setMainList } = useContext(Context);
+    const { isAuthenticated, notifications, setNotifications, mainList, setMainList, getNotifications, generateNotifications } = useContext(Context);
 
     async function handleAddToMyList(id: number){
 
@@ -47,7 +48,7 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             })
             .then(response => {
                 message = response.data.message;
-                setMainList(response.data.updatedList);    
+                setMainList(response.data.updatedList);
             })
             .catch(err => {
                 message = err.response.data.message;
@@ -75,12 +76,12 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             setDeleteAnimation(true);
             setTimeout(() => {
                 setMainList(mainList?.filter(item => item.id !== id));
-            }, 500)
-            
+            }, 500);
         })
         .catch(err => {
             message = err.response.data.message;
             type = 'error';
+            setResults(false);
         });
 
         setFlashMessage({message, type});
@@ -118,8 +119,6 @@ export function Card({ type, image, title, date, id, mainCard }: CardProps){
             <figure className="cover" onClick={() => handleAddToMyList(id)}>
                 <span className="over">
                     <p>ADICIONAR</p>
-                    
-                    {/* <AiOutlinePlusCircle /> */}
                 </span>
                 <Image 
                     alt=""

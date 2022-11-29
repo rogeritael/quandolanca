@@ -1,8 +1,44 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 interface IHeader {
     showHeader: boolean;
+    isThereUnreadNotification: boolean;
 }
+
+const bellAnimation = keyframes`  
+  0%, 90%{
+    transform: rotateZ(0);
+  }
+  5%, 15%, 25%, 35%, 45%, 55%, 65%, 75% {
+    transform: rotateZ(30deg);
+  }
+  10%, 20%, 30%, 40%, 50%, 50%, 60%, 70% {
+    transform: rotateZ(-30deg);
+  }
+`;
+
+// const bellAnimation = keyframes`  
+// from {
+//     rotate: 30deg;
+//   }
+//   to{
+//     rotate: -30deg;
+//   }
+// `;
+
+const pulse = keyframes`  
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2, 2);
+    opacity: 0;
+  }
+`;
 
 export const Container = styled.header<IHeader>`
     ${props => props.showHeader === false && `
@@ -96,25 +132,56 @@ export const Container = styled.header<IHeader>`
             display: flex;
             align-items: center;
 
-            svg {
-                font-size: 1.25rem;
-                cursor: pointer;
+            div.bell {
                 position: relative;
+            
+                svg {
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                    display: flex;
+                    position: relative;
 
-                &:hover {
-                    filter: brightness(1.2);
+                    &:hover {
+                        filter: brightness(1.2);
+                    }
                 }
-                /* border: 1px solid red; */ 
-            }
 
-            figure.user-image {
-                width: 40px;
-                height: 40px;
-                border-radius: 5px;
-                position: relative;
-                overflow: hidden;
-                margin-left: 1rem;
-                margin-right: .5rem;
+                .alert-circle {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 8px;
+                    background-color: goldenrod;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    display: none;
+                    pointer-events: none;
+
+                    &::after {
+                        content: '';
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 8px;
+                        background-color: goldenrod;
+                        /* z-index: -1; */
+                    }
+                } 
+
+                &.isThereUnreadNotification {
+                    svg {
+                        animation: ${bellAnimation} 2500ms infinite ease-out;
+                    }
+
+                    .alert-circle {
+                        display: flex;
+                        &::after {
+                            animation: ${pulse} 1500ms ease-out infinite
+                        }
+                    }
+                }
             }
 
             p {

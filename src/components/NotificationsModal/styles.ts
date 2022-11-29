@@ -20,7 +20,8 @@ export const Container = styled.div<notificationsModalProps>`
         height: 100%;
     }
 
-    .notifications-container {
+    .modal-container {
+        overflow-y: auto;
         position: absolute;
         right: 1rem;
         top: 1rem;
@@ -56,6 +57,11 @@ export const Container = styled.div<notificationsModalProps>`
             }
         }
 
+        .notifications-container {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
         .notification-item {
             transform: translateY(2rem);
             padding: 1rem 0.5rem;
@@ -83,6 +89,15 @@ export const Container = styled.div<notificationsModalProps>`
                 margin-bottom: .25rem;
                 color: #333;
                 text-align: left;
+            }
+        }
+
+        .unread-notification {
+            /* background-color: ; */
+            filter: brightness(1.4);
+
+            &:hover {
+                filter: brightness(1.4);
             }
         }
 
@@ -115,7 +130,7 @@ export const Container = styled.div<notificationsModalProps>`
     }
 
     @media (max-width: 480px){
-        .notifications-container {
+        .modal-container {
             width: 100%;
             height: 100%;
             right: 0;
@@ -126,7 +141,7 @@ export const Container = styled.div<notificationsModalProps>`
     ${({ isVisible }) => isVisible &&`
         opacity: 1;
     
-        .notifications-container {
+        .modal-container {
             transform: translate(0);
             opacity: 1;
 

@@ -69,6 +69,7 @@ export default function Home() {
             title={item.name}
             date={item.date}
             id={item.id}
+            setResults={SetIsResultsFound}
             mainList={mainList}
             setMainList={setMainList}
             image={item.image}
