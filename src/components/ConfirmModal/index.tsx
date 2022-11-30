@@ -1,32 +1,58 @@
 import { Container } from "./styles";
 import { AiOutlineClose } from 'react-icons/ai';
+import { useEffect, useState } from "react";
+import bus from '../../utils/bus';
 
-interface IConfirmModal {
-    title?: string;
-    description?: string;
-    acceptText?: string;
-    rejectText?: string;
-    onAccept?: () => void;
-}
+export function ConfirmModal(){
+    const [isVisible, setIsVisible] = useState(false);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [acceptText, setAcceptText] = useState('');
+    const [rejectText, setRejectText] = useState('');
+    const [handleAccept, setHandleAccept] = useState<any>()
 
-export function ConfirmModal({ title, description, acceptText, rejectText, onAccept }: IConfirmModal){
+    function handleAcceptFunction(){
+        handleAccept();
+        setIsVisible(false);
+    }
+
+    useEffect(() => {
+        document.body.style.overflowY = isVisible ? "hidden" : "auto";
+    }, [isVisible]);
+
+    useEffect(() => {
+
+        bus.addListener("confirmmodal", ({title, description, acceptText, rejectText, onAccept}) => {
+            setIsVisible(true);
+            setTitle(title);
+            setDescription(description);
+            setAcceptText(acceptText);
+            setRejectText(rejectText);
+            setHandleAccept(() => onAccept);
+        });
+    }, []);
+
+    function handleCloseModal(){
+        setIsVisible(false);
+    }
+
     return(
-        <Container>
+        <Container isVisible={isVisible}>
             <span className="background">
                 
             </span>
             <div className="modal-box">
-                <AiOutlineClose />
+                <AiOutlineClose onClick={() => handleCloseModal()}/>
                 <div className="modal-text">
-                    <h2>Excluir Resident Evil 4 Remake da sua lista?</h2>
-                    <p>Ao fazer isso você não receberá mais notificações sobre este lançamento</p>
+                    <h2>{title}</h2>
+                    <p>{description}</p>
                 </div>
                 <div className="buttons-container">
-                    <button className="btn-reject">
-                        cancelar
+                    <button className="btn-reject" onClick={() => handleCloseModal()}>
+                        {rejectText}
                     </button>
-                    <button className="btn-accept">
-                        remover
+                    <button className="btn-accept" onClick={() => handleAcceptFunction()}>
+                        {acceptText}
                     </button>
                 </div>
             </div>

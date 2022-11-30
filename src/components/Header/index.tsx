@@ -13,6 +13,7 @@ import { NotificationsModal } from "../NotificationsModal";
 import { FlashMessageCard } from "../FlashMessageCard";
 import { api } from "../../utils/api";
 import { Context } from "../../context/UserContext";
+import { useConfirmModal } from "../../hooks/useConfirmModal";
 
 const pages = [{
     title: "Inicio",
@@ -39,6 +40,7 @@ export function Header(){
     const [isNotificationModalOpen, SetIsNotificationModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isNewReleaseModalOpen, SetIsNewReleaseModalOpen] = useState(false);
+    const { setConfirmModal } = useConfirmModal();
     const [showHeader, setShowHeader] = useState(true);
     const [activeLink, setActiveLink] = useState(0);
     const [isNotificationsVisible, setIsNotificationsVisible] = useState(false);
@@ -89,12 +91,15 @@ export function Header(){
         router.push(`/search/${term}`);
     }
 
-    // function handleOpenNotificationModal(){
-    //     SetIsNotificationModalOpen(true);
-    // }
-    // function handleOpenReleaseModal(){
-    //     SetIsNewReleaseModalOpen(true);
-    // }
+    function handleOpenConfirmation(){
+        setConfirmModal({
+            title: `Deseja fazer log out?`,
+            description: 'Você precisará preencher seu email e senha novamente para acessar a sua lista.',
+            rejectText: 'cancelar',
+            acceptText: 'sair',
+            onAccept: () => logout()
+        })
+    }
 
     function handleCloseModal(){
         SetIsNotificationModalOpen(false);
@@ -122,7 +127,7 @@ export function Header(){
                         </div>
                         {/* MODAL */}
                         <AppModal isOpen={isNotificationModalOpen} onRequestClose={handleCloseModal}/>
-                        <p>{username}<span className="logout-link" onClick={() => logout()}>sair</span> </p>
+                        <p>{username}<span className="logout-link" onClick={() => handleOpenConfirmation()}>sair</span> </p>
                     </div>
                 ) : (
                     <Link href="/login" className="login-link">LOGIN | CRIAR CONTA</Link>

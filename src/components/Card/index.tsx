@@ -5,6 +5,7 @@ import { api } from "../../utils/api";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/UserContext";
 import Image from "next/image";
+import { useConfirmModal } from "../../hooks/useConfirmModal";
 
 interface ListProps {
     id: number,
@@ -27,6 +28,7 @@ interface CardProps {
 export function Card({ type, image, title, date, id, mainCard, setResults }: CardProps){
     const [daysToGo, setDaysToGo] = useState('')
     const { setFlashMessage } = useFlashMessage();
+    const { setConfirmModal } = useConfirmModal();
     const [isReleased, setIsReleased] = useState(false);
     const [deleteAnimation, setDeleteAnimation] = useState(false);
     const { isAuthenticated, notifications, setNotifications, mainList, setMainList, getNotifications, generateNotifications } = useContext(Context);
@@ -87,6 +89,22 @@ export function Card({ type, image, title, date, id, mainCard, setResults }: Car
         setFlashMessage({message, type});
     }
 
+    interface IConfirmation {
+        id: number;
+        title: string
+    }
+
+    function handleOpenConfirmation({id, title}: IConfirmation){
+        setConfirmModal({
+            title: `Deseja remover ${title} da sua lista?`,
+            description: 'Ao fazer isso você não receberá mais notificações sobre este lançamento.',
+            rejectText: 'cancelar',
+            acceptText: 'remover',
+            onAccept: () => handleRemoveRelease(id)
+        })
+    }
+
+
     useEffect(() => {
         const newdate = new Date(); 
         const current_date = Date.parse(newdate as any)
@@ -141,7 +159,8 @@ export function Card({ type, image, title, date, id, mainCard, setResults }: Car
                         <span>{daysToGo}</span>
                         <p className="title">{title}</p>
                         {isAuthenticated && (
-                            <button className="remove-button" onClick={() => handleRemoveRelease(id)}>remover <AiOutlineClose /></button>
+                            // <button className="remove-button" onClick={() => handleRemoveRelease(id)}>remover <AiOutlineClose /></button>
+                            <button className="remove-button" onClick={() => handleOpenConfirmation({id, title})}>remover <AiOutlineClose /></button>
                         )}
                     </> 
                 )}

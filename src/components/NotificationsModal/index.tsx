@@ -25,10 +25,6 @@ export function NotificationsModal({ isVisible, setVisible }: NotificationsModal
         }else {
             setNotificationsExists(true);
         }
-
-        // {notifications.map(notification => (
-        //     notification.notificaionReadStatus === false &&( setIsThereUnreadNotification(false) )
-        // ))}
     }, [notifications]);
 
     useEffect(() => {
