@@ -54,15 +54,15 @@ export function useNotifications(){
             stage = 5;
             description = `${releaseName} lança hoje! uhu`;
 
-        }else if(howLongToRelease >= -1 && howLongToRelease > -15){
+        }else if(howLongToRelease <= -1 && howLongToRelease > -15){
             type = 'lançou';
             stage = 6;
-            description = `${releaseName} lançou há ${howLongToRelease} dias.`;
+            description = `${releaseName} lançou há ${howLongToRelease.toString().replace('-', '')} dias.`;
 
         }else if(howLongToRelease <= -15){
             type = 'lançou';
             stage = 7;
-            description = `${releaseName} lançou há ${howLongToRelease} dias.`;
+            description = `${releaseName} lançou há ${howLongToRelease.toString().replace('-', '')} dias.`;
         }
 
         if( stage !== 0 ){

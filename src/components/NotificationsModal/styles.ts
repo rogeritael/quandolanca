@@ -64,7 +64,7 @@ export const Container = styled.div<notificationsModalProps>`
 
         .notification-item {
             transform: translateY(2rem);
-            padding: 1rem 0.5rem;
+            padding: 1.15rem 0.5rem;
             border-bottom: 1px solid #333;
             transition: 500ms;
             background-color: var(--main-gray);
@@ -86,7 +86,7 @@ export const Container = styled.div<notificationsModalProps>`
 
             p.date {
                 font-size: 0.8rem;
-                margin-bottom: .25rem;
+                margin-bottom: .5rem;
                 color: #333;
                 text-align: left;
             }
