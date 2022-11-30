@@ -166,7 +166,6 @@ export const Container = styled.header<IHeader>`
                         height: 8px;
                         border-radius: 8px;
                         background-color: goldenrod;
-                        /* z-index: -1; */
                     }
                 } 
 

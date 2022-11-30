@@ -3,6 +3,7 @@ import { CardSlider } from "../components/CardSlider";
 import { useEffect, useState, useContext } from "react";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
+import { ConfirmModal } from "../components/ConfirmModal";
 
 interface ListProps {
   id: number,
@@ -61,6 +62,7 @@ export default function Home() {
 
   return (
     <>
+      <ConfirmModal />
       <CardSlider isResultsFound={isResultsFound} columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
         {mainList.length > 0 && ( mainList.map(item => (
           <Card
