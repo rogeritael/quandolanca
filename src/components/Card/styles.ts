@@ -72,7 +72,7 @@ export const Container = styled.article<CardProps>`
 
             p {
                 color: #fff;
-                font-size: 1.25rem;
+                font-size: ${props => props.type === 2 ? '0.9rem' : '1.25rem'};
                 animation: ${addAnimation} 500ms forwards;
             }
         }
