@@ -36,10 +36,13 @@ export default function Home() {
         }
       })
       .then(response => {
-        setMainList(response.data.user.userlists);
-        response.data.user.userlists.length < 1 && SetIsResultsFound(false);
+        const userlist = response.data.user.userlists;
 
-        response.data.user.userlists.map((item: any) => {
+        setMainList(userlist);
+
+        userlist.length <= 1 && SetIsResultsFound(false);
+
+        userlist.map((item: any) => {
           generateNotifications(item.date, item.name);
         });
       })

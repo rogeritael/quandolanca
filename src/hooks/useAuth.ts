@@ -41,7 +41,8 @@ export function useAuth(){
                 data: {
                     name, email, password, confirmpassword
                 }
-            })
+            });
+            router.push('/login');
         }catch(err: any ){
             message = err.response.data.message;
             type = 'error';

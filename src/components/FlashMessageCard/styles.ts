@@ -19,7 +19,8 @@ export const Container = styled.div<FlashMessageProps>`
     bottom: 2rem;
     right: 2rem;
     background-color: #fff;
-    color: #333;
+    /* color: #333; */
+    color: var(--main-gray);
     border-radius: 3px;
     min-height: 60px;
     padding: 1rem;
@@ -36,7 +37,7 @@ export const Container = styled.div<FlashMessageProps>`
     svg {
         margin-right: 5px;
         font-size: 1.5rem;
-        color: ${props => props.type === "success" ? "green" : "red"};
+        color: var(--main-gray);
     }
 
     p {
@@ -47,7 +48,7 @@ export const Container = styled.div<FlashMessageProps>`
         content: '';
         height: 4px;
         width: 100%;
-        background-color: ${props => props.type === "success" ? "green" : "red"};
+        background-color: var(--gray-2);
         position: absolute;
         bottom: 0;
         left: 0;

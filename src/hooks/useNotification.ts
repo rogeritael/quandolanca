@@ -35,7 +35,7 @@ export function useNotifications(){
             description = `${releaseName} lança daqui à ${howLongToRelease} dias.`;
 
         }else if(howLongToRelease <= 15 && howLongToRelease > 7){
-            type = 'em breve';
+            type = 'quase lá';
             stage = 2;
             description = `${releaseName} lança daqui à ${howLongToRelease} dias.`;
 
@@ -60,12 +60,12 @@ export function useNotifications(){
             description = `${releaseName} lançou há ${howLongToRelease.toString().replace('-', '')} dias.`;
 
         }else if(howLongToRelease <= -15){
-            type = 'lançou';
+            type = 'você perdeu? ';
             stage = 7;
-            description = `${releaseName} lançou há ${howLongToRelease.toString().replace('-', '')} dias.`;
+            description = `${releaseName} já lançou há ${howLongToRelease.toString().replace('-', '')} dias.`;
         }
 
-        if( stage !== 0 ){
+        if( stage !== 0){
 
             await api({
                 method: "post",

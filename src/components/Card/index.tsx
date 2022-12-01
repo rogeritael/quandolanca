@@ -143,10 +143,11 @@ export function Card({ type, image, title, date, id, mainCard, setResults }: Car
                     fill
                     src={`data:image/jpeg;base64,${image}`}
                 />
+
+                {isReleased && (
+                    <span className="released-marker">LANÇADO</span>
+                )}
             </figure>
-            {isReleased && (
-                <span className="released-marker">LANÇADO</span>
-            )}
             
             <div className="release-info">
                 {type === 2 ? (

@@ -59,6 +59,7 @@ export const Container = styled.article<CardProps>`
 
         img {
             pointer-events: none;
+            object-fit: cover;
         }
 
         .over {

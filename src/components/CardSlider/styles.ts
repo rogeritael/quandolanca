@@ -6,7 +6,7 @@ interface SliderProps {
 
 export const Container = styled.section<SliderProps>`
     padding: 2rem;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
 
     h1 {
         margin-bottom: 1rem;
@@ -15,6 +15,8 @@ export const Container = styled.section<SliderProps>`
 
     .card-container {
         width: 100%;
+        /* height: 24rem; */
+        /* border: 1px solid red; */
         overflow: hidden;
         cursor: grab;
         overflow: hidden;
