@@ -29,7 +29,7 @@ export function CardSlider({ title, columns, children, isResultsFound }: MainLis
                 </motion.div>
             </motion.div>
 
-            {isResultsFound === false && (
+            {/* {isResultsFound === false && (
                 <div className="voidlist-container">
                     <figure className="voidlist-image">
                         <Image
@@ -41,7 +41,7 @@ export function CardSlider({ title, columns, children, isResultsFound }: MainLis
                     </figure>
                     <h2>Não há nada por aqui ainda :(</h2>
                 </div>
-            )}
+            )} */}
         </Container>
     )
 }

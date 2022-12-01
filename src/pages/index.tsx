@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { api } from "../utils/api";
 import { Context } from "../context/UserContext";
 import { ConfirmModal } from "../components/ConfirmModal";
+import { VoidList } from "../components/VoidList";
 
 interface ListProps {
   id: number,
@@ -64,7 +65,7 @@ export default function Home() {
     <>
       <ConfirmModal />
       <CardSlider isResultsFound={isResultsFound} columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
-        {mainList.length > 0 && ( mainList.map(item => (
+        {mainList.length > 0 ? ( mainList.map(item => (
           <Card
             key={item.id}
             mainCard={isAuthenticated ? true : false}
@@ -76,7 +77,10 @@ export default function Home() {
             setMainList={setMainList}
             image={item.image}
           />
-          )))}
+          ))):
+          (
+            <VoidList />
+          )}
       </CardSlider>
 
       <CardSlider title="Recomendados">

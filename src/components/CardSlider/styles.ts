@@ -38,7 +38,7 @@ export const Container = styled.section<SliderProps>`
         }
     }
 
-    .voidlist-container {
+    /* .voidlist-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -55,7 +55,7 @@ export const Container = styled.section<SliderProps>`
             position: relative;
             margin-bottom: 1rem;
         }
-    }
+    } */
 
     
 
