@@ -66,7 +66,7 @@ export default function Home() {
 
   return (
     <>
-      <ConfirmModal />
+      {/* <ConfirmModal /> */}
       <CardSlider isResultsFound={isResultsFound} columns={1} title={isAuthenticated ? "Minha Lista" : "Recém Lançados"}>
         {mainList.length > 0 ? ( mainList.map(item => (
           <Card

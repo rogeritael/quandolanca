@@ -6,7 +6,7 @@ interface notificationsModalProps {
 
 export const Container = styled.div<notificationsModalProps>`
     background-color: rgba(0,0,0,0.8);
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     z-index: ${props => props.isVisible ? 2 : -1};

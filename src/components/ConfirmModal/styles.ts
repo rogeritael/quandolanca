@@ -8,7 +8,7 @@ export const Container = styled.section<IConfirmModal>`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     z-index: ${props => props.isVisible ? 1 : -1};
     opacity: 0;
     width: 100%;
